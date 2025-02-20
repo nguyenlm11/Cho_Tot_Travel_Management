@@ -1,0 +1,145 @@
+.room-list-container {
+    background: #f0f2f5;
+    min-height: 100%;
+}
+
+.room-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.card-header h2 {
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.search-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    max-width: 500px;
+}
+
+.search-input .ant-input {
+    border-radius: 8px;
+}
+
+.add-button {
+    background: #30B53E;
+    border-color: #30B53E;
+    border-radius: 8px;
+    height: 40px;
+    padding: 0 24px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.add-button:hover {
+    background: #28A035 !important;
+    border-color: #28A035 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(48, 181, 62, 0.2);
+}
+
+.room-table {
+    margin-top: 8px;
+    border: 1px solid #E0E0E0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.room-table .ant-table-thead>tr>th {
+    background: #30B53E !important;
+    font-weight: 600;
+    padding: 16px;
+    color: #fff;
+}
+
+.room-number {
+    font-size: 15px;
+    color: #1a1a1a;
+}
+
+.room-id {
+    font-size: 13px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+.bed-badge {
+    background: #e6f7ff;
+    color: #1890ff;
+    border-radius: 12px;
+    padding: 2px 8px;
+}
+
+.price {
+    color: #30B53E;
+}
+
+.status-badge {
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.view-button {
+    background: #30B53E;
+    border-color: #30B53E;
+}
+
+.view-button:hover {
+    background: #28A035 !important;
+    border-color: #28A035 !important;
+}
+
+.edit-button:hover {
+    color: #30B53E;
+    border-color: #30B53E;
+}
+
+.custom-pagination {
+    margin-top: 16px;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .room-list-container {
+        padding: 16px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: none;
+    }
+
+    .add-button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,398 @@
+.service-list {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card styles */
+.service-card {
+  background: #fff;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 24px;
+}
+
+.ant-card-head-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+/* Toolbar styles */
+.service-toolbar {
+  margin-bottom: 24px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.ant-input-search {
+  max-width: 400px;
+}
+
+.ant-input-search .ant-input {
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.ant-input-search .ant-input:hover,
+.ant-input-search .ant-input:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+/* Table styles */
+.ant-table-wrapper {
+  background: #fff;
+  /* border-radius: 12px; */
+  overflow: hidden;
+}
+
+.ant-table {
+  transition: all 0.3s ease;
+}
+
+.ant-table-thead>tr>th {
+  background: #fafafa !important;
+  font-weight: 600;
+  padding: 16px !important;
+  font-size: 14px;
+  color: #1f1f1f;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ant-table-tbody>tr>td {
+  padding: 16px !important;
+  transition: all 0.3s ease;
+}
+
+.ant-table-tbody>tr:hover>td {
+  background: #f8f9ff !important;
+}
+
+/* Status tag styles */
+.ant-tag {
+  min-width: 100px;
+  text-align: center;
+  padding: 4px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+}
+
+/* Button styles */
+.ant-btn {
+  border-radius: 8px;
+  padding: 8px 16px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ant-btn-primary {
+  background: #1890ff;
+}
+
+.ant-btn-primary:hover {
+  background: #40a9ff;
+}
+
+.ant-modal-wrap {
+  animation: none !important;
+}
+
+.ant-modal {
+  animation: modalFadeIn 0.3s ease-in-out forwards;
+  will-change: opacity, transform;
+}
+
+.ant-modal-content {
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 24px;
+  border-radius: 12px 12px 0 0;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #1f1f1f;
+}
+
+.ant-modal-body {
+  padding: 24px;
+}
+
+
+/* Form styles */
+.ant-form-item-label>label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+
+.ant-input,
+.ant-input-number,
+.ant-select-selector {
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-input:hover,
+.ant-input-number:hover,
+.ant-select-selector:hover {
+  border-color: #40a9ff !important;
+}
+
+.ant-input:focus,
+.ant-input-number:focus,
+.ant-select-selector:focus {
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1) !important;
+}
+
+/* Loading animation */
+.ant-spin {
+  transition: all 0.3s ease;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .service-list {
+    padding: 16px;
+  }
+
+  .service-actions {
+    justify-content: flex-start;
+    margin-top: 16px;
+  }
+
+  .ant-table {
+    font-size: 14px;
+  }
+
+  .ant-tag {
+    min-width: 90px;
+    font-size: 12px;
+  }
+}
+
+.service-list-container {
+  background: #f0f2f5;
+  min-height: 100%;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.search-section {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.search-input .ant-input {
+  border-radius: 8px;
+}
+
+.add-button {
+  background: #30B53E;
+  border-color: #30B53E;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-button:hover {
+  background: #28A035 !important;
+  border-color: #28A035 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(48, 181, 62, 0.2);
+}
+
+.service-table {
+  margin-top: 8px;
+  border: 1px solid #E0E0E0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.service-table .ant-table-thead>tr>th {
+  background: #30B53E !important;
+  font-weight: 600;
+  padding: 16px;
+  color: #fff;
+}
+
+.service-name {
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.service-id {
+  font-size: 13px;
+}
+
+.price {
+  color: #30B53E;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button {
+  background: #30B53E;
+  border-color: #30B53E;
+}
+
+.edit-button:hover {
+  background: #28A035 !important;
+  border-color: #28A035 !important;
+}
+
+.delete-button:hover {
+  background: #ff4d4f;
+  color: white;
+}
+
+.custom-pagination {
+  margin-top: 16px;
+  text-align: right;
+}
+
+/* Modal styling */
+.ant-modal-content {
+  border-radius: 12px;
+}
+
+.ant-modal-header {
+  border-radius: 12px 12px 0 0;
+}
+
+.ant-form-item-label>label {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .service-list-container {
+    padding: 16px;
+  }
+
+  .search-section {
+    flex-direction: column;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+}
+
+.action-button {
+  border: none;
+  padding: 4px 8px;
+  height: 32px;
+}
+
+.action-button:hover {
+  background-color: #f0f0f0;
+  color: #30B53E;
+}
+
+/* Dropdown menu styling */
+.ant-dropdown-menu {
+  padding: 4px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ant-dropdown-menu-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: #f6f6f6;
+}
+
+.ant-dropdown-menu-item-danger:hover {
+  background-color: #fff1f0;
+}

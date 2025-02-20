@@ -1,0 +1,103 @@
+.header {
+  background: #fff;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.notification-button {
+  padding: 4px 8px;
+  height: 40px;
+  width: 40px;
+}
+
+.user-info {
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.user-name {
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.notification-menu {
+  width: 360px;
+}
+
+.notification-header {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-header span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.notification-item {
+  padding: 12px 16px !important;
+  margin: 0 !important;
+}
+
+.notification {
+  padding: 8px 0;
+}
+
+.notification.unread {
+  background-color: #f0f7ff;
+}
+
+.notification-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.notification-description {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.notification-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.notification-footer {
+  text-align: center;
+  padding: 8px !important;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 12px !important;
+    width: 100%;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .search-input {
+    max-width: 200px;
+  }
+
+  .notification-menu {
+    width: 300px;
+  }
+}

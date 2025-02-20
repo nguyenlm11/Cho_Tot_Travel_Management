@@ -32,7 +32,36 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.ant-layout {
+  background: #f0f2f5;
+  position: relative;
+}
+
+.ant-layout-content {
+  /* margin-left: 300px; */
+  transition: all 0.3s ease;
+}
+
+.content-container {
+  min-height: 280px;
+}
+
+.main-content {
+  min-height: calc(100vh - 124px);
+  background: #fff;
+  overflow-y: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .main-content {
+    margin: 64px 0 60px 0;
+    padding: 16px;
   }
 }

@@ -1,0 +1,220 @@
+.sidebar {
+  background: linear-gradient(180deg, #30B53E 0%, #28A035 100%);
+  box-shadow: 4px 0 10px rgba(48, 181, 62, 0.2);
+  transition: all 0.3s ease !important;
+  height: 100vh;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  height: 64px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  transition: all 0.3s ease;
+}
+
+.logo-text {
+  margin-left: 12px;
+  color: #ffffff !important;
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Menu styling */
+.ant-menu {
+  padding: 10px !important;
+  border-right: none !important;
+  background: transparent !important;
+}
+
+.ant-menu-item {
+  margin: 8px !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
+}
+
+.ant-menu-submenu-title {
+  margin: 8px !important;
+  padding: 18px 16px !important;
+  border-radius: 8px !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+}
+
+/* Menu item hover effect */
+.ant-menu-item:hover,
+.ant-menu-submenu-title:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Selected menu item */
+.ant-menu-item-selected {
+  background: #ffffff !important;
+  color: #30B53E !important;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ant-menu-item-selected::after {
+  display: none !important;
+}
+
+/* Submenu styles */
+.ant-menu-submenu-inline>.ant-menu-submenu-title .ant-menu-submenu-arrow {
+  right: 16px;
+  color: #ffffff;
+}
+
+.ant-menu-submenu-open>.ant-menu-submenu-title .ant-menu-submenu-arrow {
+  transform: rotate(90deg) !important;
+  color: #ffffff;
+}
+
+/* Submenu items */
+.ant-menu-sub {
+  background: #30B53E !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-menu-sub .ant-menu-item {
+  padding: 12px 12px 12px 48px !important;
+  margin: 4px 8px !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+}
+
+/* Icons in menu */
+.ant-menu-item .anticon,
+.ant-menu-submenu-title .anticon {
+  font-size: 18px !important;
+  margin-right: 16px !important;
+  color: #ffffff;
+}
+
+.ant-menu-item-selected .anticon {
+  color: #30B53E !important;
+}
+
+/* Collapse button */
+.ant-layout-sider-trigger {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+}
+
+.ant-layout-sider-trigger:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Scrollbar styling */
+.ant-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ant-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.ant-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Animation for submenu */
+.ant-menu-submenu-inline>.ant-menu-sub {
+  animation: slideInMenu 0.3s ease-in-out;
+}
+
+@keyframes slideInMenu {
+  0% {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hover effect for menu items */
+.ant-menu-item,
+.ant-menu-submenu-title {
+  position: relative;
+  overflow: hidden;
+}
+
+.ant-menu-item::before,
+.ant-menu-submenu-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
+  transition: 0.5s;
+}
+
+.ant-menu-item:hover::before,
+.ant-menu-submenu-title:hover::before {
+  left: 100%;
+}
+
+/* Active submenu title */
+.ant-menu-submenu-selected>.ant-menu-submenu-title {
+  color: #ffffff !important;
+}
+
+.ant-menu-submenu-selected>.ant-menu-submenu-title .anticon {
+  color: #ffffff !important;
+}
+
+/* Back button */
+.back-button {
+  color: #ffffff !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+
+  .ant-layout-sider-collapsed {
+    transform: translateX(-80px);
+  }
+}
