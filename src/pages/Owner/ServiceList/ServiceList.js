@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Card, Button, Space, Input, Modal, Form, InputNumber, Select, Typography, Badge, Dropdown } from 'antd';
+import { Table, Card, Button, Space, Input, Modal, Form, InputNumber, Select, Typography, Badge, Dropdown, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, EyeOutlined, EllipsisOutlined } from '@ant-design/icons';
 import './ServiceList.css';
+import '../../../styles/CommonTag.css';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -58,30 +59,33 @@ const ServiceList = () => {
 
     const columns = [
         {
+            title: 'Mã dịch vụ',
+            dataIndex: 'serviceId',
+            key: 'serviceId',
+            width: 120,
+            render: (text) => <Text type="secondary">#{text}</Text>,
+        },
+        {
             title: 'Tên dịch vụ',
             dataIndex: 'serviceName',
             key: 'serviceName',
-            width: 250,
-            render: (text, record) => (
-                <Space direction="vertical" size={0}>
-                    <Text strong className="service-name">{text}</Text>
-                    <Text type="secondary" className="service-id">#{record.serviceId}</Text>
-                </Space>
-            ),
+            width: 200,
+            render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Mô tả',
             dataIndex: 'description',
             key: 'description',
-            width: 300,
+            width: 250,
+            ellipsis: true,
         },
         {
             title: 'Giá dịch vụ',
             dataIndex: 'price',
             key: 'price',
-            width: 200,
+            width: 150,
             render: (price) => (
-                <Text strong className="price">
+                <Text strong style={{ color: '#52c41a' }}>
                     {new Intl.NumberFormat('vi-VN').format(price)} đ
                 </Text>
             ),
@@ -92,19 +96,20 @@ const ServiceList = () => {
             key: 'status',
             width: 150,
             render: (status) => {
-                let color = 'success';
-                let text = 'Hoạt động';
-                if (status === 'inactive') {
-                    color = 'error';
-                    text = 'Tạm ngưng';
-                }
-
-                return <Badge status={color} text={text} className="status-badge" />;
+                const config = {
+                    active: { text: 'Hoạt động', class: 'active' },
+                    inactive: { text: 'Tạm ngưng', class: 'inactive' }
+                };
+                return (
+                    <Tag className={`status-tag ${config[status].class}`}>
+                        {config[status].text}
+                    </Tag>
+                );
             },
         },
         {
-            title: 'Thao tác',
             key: 'action',
+            align: 'center',
             width: 80,
             render: (_, record) => {
                 const items = [
@@ -204,9 +209,9 @@ const ServiceList = () => {
                     loading={loading}
                     pagination={{
                         total: data.length,
-                        pageSize: 5,
+                        pageSize: 10,
                         showTotal: (total) => `Tổng số ${total} dịch vụ`,
-                        className: "custom-pagination"
+                        className: "service-pagination"
                     }}
                     className="service-table"
                 />
