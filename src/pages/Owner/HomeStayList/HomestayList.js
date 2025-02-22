@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Table, Card, Button, Space, Input, Tooltip, Typography, Badge, Dropdown } from 'antd';
+import { Table, Card, Button, Space, Input, Tooltip, Typography, Badge, Dropdown, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, EyeOutlined, SearchOutlined, StarFilled, DeleteOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './HomestayList.css';
+import '../../../styles/CommonTag.css';
 
 const { Search } = Input;
 const { Title, Text } = Typography;
@@ -39,63 +40,84 @@ const HomestayList = () => {
             rooms: 2,
             rating: 4.2,
         },
+        {
+            key: '4',
+            homestayId: 'HS003',
+            name: 'City Center Apartment',
+            address: '789 Nguyen Hue, Ho Chi Minh City',
+            status: 'inactive',
+            rooms: 2,
+            rating: 4.2,
+        },
+        {
+            key: '5',
+            homestayId: 'HS003',
+            name: 'City Center Apartment',
+            address: '789 Nguyen Hue, Ho Chi Minh City',
+            status: 'inactive',
+            rooms: 2,
+            rating: 4.2,
+        },
+        {
+            key: '6',
+            homestayId: 'HS003',
+            name: 'City Center Apartment',
+            address: '789 Nguyen Hue, Ho Chi Minh City',
+            status: 'inactive',
+            rooms: 2,
+            rating: 4.2,
+        },
     ];
 
     const columns = [
         {
+            title: 'Mã Homestay',
+            dataIndex: 'homestayId',
+            key: 'homestayId',
+            width: 80,
+            render: (text) => <Text type="secondary">#{text}</Text>,
+        },
+        {
             title: 'Tên Homestay',
             dataIndex: 'name',
             key: 'name',
-            width: 250,
-            render: (text, record) => (
-                <Space direction="vertical" size={0}>
-                    <Text strong className="homestay-name">{text}</Text>
-                    <Text type="secondary" className="homestay-id">#{record.homestayId}</Text>
-                </Space>
-            ),
+            width: 150,
+            render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Địa chỉ',
             dataIndex: 'address',
             key: 'address',
-            width: 300,
+            width: 200,
+            ellipsis: true,
         },
         {
-            title: 'Thông tin',
-            key: 'info',
-            width: 200,
-            render: (_, record) => (
-                <Space direction="vertical" size={0}>
-                    <div className="info-item">
-                        <span>Số phòng:</span>
-                        <Badge count={record.rooms} className="room-badge" />
-                    </div>
-                    <div className="info-item">
-                        <span>Đánh giá:</span>
-                        <span className="rating">
-                            <StarFilled className="star-icon" />
-                            {record.rating}
-                        </span>
-                    </div>
-                </Space>
-            ),
+            title: 'Số phòng',
+            dataIndex: 'rooms',
+            key: 'rooms',
+            width: 70,
+            render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Trạng thái',
             dataIndex: 'status',
             key: 'status',
-            width: 150,
-            render: (status) => (
-                <Badge
-                    status={status === 'active' ? 'success' : 'error'}
-                    text={status === 'active' ? 'Đang hoạt động' : 'Tạm ngưng'}
-                    className="status-badge"
-                />
-            ),
+            width: 100,
+            render: (status) => {
+                const config = {
+                    active: { text: 'Đang hoạt động', class: 'active' },
+                    inactive: { text: 'Tạm ngưng', class: 'inactive' }
+                };
+                return (
+                    <Tag className={`status-tag ${config[status].class}`}>
+                        {config[status].text}
+                    </Tag>
+                );
+            },
         },
         {
-            key: 'action',
             width: 30,
+            align: 'center',
             render: (_, record) => {
                 const items = [
                     {
@@ -168,9 +190,9 @@ const HomestayList = () => {
                     loading={loading}
                     pagination={{
                         total: data.length,
-                        pageSize: 5,
+                        pageSize: 10,
                         showTotal: (total) => `Tổng số ${total} homestay`,
-                        className: "custom-pagination"
+                        className: "homestay-pagination"
                     }}
                     className="homestay-table"
                 />

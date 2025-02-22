@@ -27,25 +27,25 @@ function App() {
                   key={route.path}
                   path={route.path}
                   element={
-                    typeof route.element === 'function' 
-                      ? route.element({ userRole }) 
+                    typeof route.element === 'function'
+                      ? route.element({ userRole })
                       : route.element
                   }
                 />
               ))}
 
               {/* Role-specific routes */}
-              {userRole === 'admin' 
+              {userRole === 'admin'
                 ? adminRoutes.map((route) => (
-                    <Route key={route.path} path={route.path} element={route.element} />
-                  ))
+                  <Route key={route.path} path={route.path} element={route.element} />
+                ))
                 : ownerRoutes.map((route) => (
-                    <Route key={route.path} path={route.path} element={route.element} />
-                  ))
+                  <Route key={route.path} path={route.path} element={route.element} />
+                ))
               }
             </Routes>
+            <Footer />
           </Content>
-          <Footer />
         </Layout>
       </Layout>
     </Router>

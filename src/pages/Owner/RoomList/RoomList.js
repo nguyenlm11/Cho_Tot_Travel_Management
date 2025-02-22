@@ -3,6 +3,7 @@ import { Table, Card, Button, Space, Input, Tooltip, Typography, Badge, Tag, Dro
 import { PlusOutlined, EditOutlined, EyeOutlined, SearchOutlined, DeleteOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './RoomList.css';
+import '../../../styles/CommonTag.css';
 
 const { Search } = Input;
 const { Title, Text } = Typography;
@@ -43,16 +44,18 @@ const RoomList = () => {
 
     const columns = [
         {
-            title: 'Phòng',
+            title: 'Mã phòng',
+            dataIndex: 'roomId',
+            key: 'roomId',
+            width: 120,
+            render: (text) => <Text type="secondary">#{text}</Text>,
+        },
+        {
+            title: 'Tên phòng',
             dataIndex: 'roomNumber',
             key: 'roomNumber',
-            width: 200,
-            render: (text, record) => (
-                <Space direction="vertical" size={0}>
-                    <Text strong className="room-number">Phòng {text}</Text>
-                    <Text type="secondary" className="room-id">#{record.roomId}</Text>
-                </Space>
-            ),
+            width: 120,
+            render: (text) => <Text strong>Phòng {text}</Text>,
         },
         {
             title: 'Loại phòng',
@@ -64,22 +67,21 @@ const RoomList = () => {
             ),
         },
         {
-            title: 'Thông tin',
-            key: 'info',
-            width: 200,
-            render: (_, record) => (
-                <Space direction="vertical" size={0}>
-                    <div className="info-item">
-                        <span>Số giường:</span>
-                        <Badge count={record.bedCount} className="bed-badge" />
-                    </div>
-                    <div className="info-item">
-                        <span>Giá:</span>
-                        <Text strong className="price">
-                            {new Intl.NumberFormat('vi-VN').format(record.price)} đ/đêm
-                        </Text>
-                    </div>
-                </Space>
+            title: 'Số giường',
+            dataIndex: 'bedCount',
+            key: 'bedCount',
+            width: 120,
+            render: (text) => <Text strong>{text}</Text>,
+        },
+        {
+            title: 'Giá phòng',
+            dataIndex: 'price',
+            key: 'price',
+            width: 150,
+            render: (price) => (
+                <Text strong style={{ color: '#52c41a' }}>
+                    {new Intl.NumberFormat('vi-VN').format(price)} đ
+                </Text>
             ),
         },
         {
@@ -88,23 +90,21 @@ const RoomList = () => {
             key: 'status',
             width: 150,
             render: (status) => {
-                let color = 'success';
-                let text = 'Trống';
-
-                if (status === 'occupied') {
-                    color = 'warning';
-                    text = 'Đang thuê';
-                } else if (status === 'maintenance') {
-                    color = 'error';
-                    text = 'Bảo trì';
-                }
-
-                return <Badge status={color} text={text} className="status-badge" />;
+                const config = {
+                    available: { text: 'Trống', class: 'active' },
+                    occupied: { text: 'Đang thuê', class: 'pending' },
+                    maintenance: { text: 'Bảo trì', class: 'inactive' }
+                };
+                return (
+                    <Tag className={`status-tag ${config[status].class}`}>
+                        {config[status].text}
+                    </Tag>
+                );
             },
         },
         {
-            title: 'Thao tác',
             key: 'action',
+            align: 'center',
             width: 80,
             render: (_, record) => {
                 const items = [
@@ -179,9 +179,9 @@ const RoomList = () => {
                     loading={loading}
                     pagination={{
                         total: data.length,
-                        pageSize: 5,
+                        pageSize: 10,
                         showTotal: (total) => `Tổng số ${total} phòng`,
-                        className: "custom-pagination"
+                        className: "room-pagination"
                     }}
                     className="room-table"
                 />

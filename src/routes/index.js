@@ -3,6 +3,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import ServiceList from '../pages/Owner/ServiceList/ServiceList';
 import HomestayList from '../pages/Owner/HomeStayList/HomestayList';
 import RoomList from '../pages/Owner/RoomList/RoomList';
+import CustomerList from '../pages/Owner/CustomerList/CustomerList';
 
 // Routes cho Admin
 const adminRoutes = [
@@ -62,16 +63,12 @@ const ownerRoutes = [
         element: <ServiceList />,
     },
     {
-        path: '/homestay/:id/service-pricing',
-        element: <div>Bảng giá dịch vụ</div>,
-    },
-    {
         path: '/homestay/:id/bookings',
         element: <div>Danh sách đặt phòng</div>,
     },
     {
         path: '/homestay/:id/customers',
-        element: <div>Khách hàng</div>,
+        element: <CustomerList />,
     },
     {
         path: '/homestay/:id/revenue',
