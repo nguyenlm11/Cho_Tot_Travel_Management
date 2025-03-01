@@ -10,16 +10,15 @@ import './App.css';
 const { Content } = Layout;
 
 function App() {
-  // Giả sử userRole được lấy từ context hoặc redux store
   const userRole = 'owner'; // hoặc 'admin'
 
   return (
     <Router>
-      <Layout style={{ height: '100vh' }}>
+      <Layout hasSider>
         <Sidebar userRole={userRole} />
         <Layout>
           <Header userRole={userRole} />
-          <Content className="main-content">
+          <Content className='main-content'>
             <Routes>
               {/* Common routes */}
               {commonRoutes.map((route) => (
@@ -44,8 +43,8 @@ function App() {
                 ))
               }
             </Routes>
-            <Footer />
           </Content>
+          <Footer />
         </Layout>
       </Layout>
     </Router>

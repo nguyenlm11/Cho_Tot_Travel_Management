@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Card, Space, Input, Typography, Button, Dropdown, Avatar, Tag } from 'antd';
-import { SearchOutlined, EllipsisOutlined, EyeOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons';
+import { Table, Card, Input, Typography, Button, Dropdown, Avatar, Tag } from 'antd';
+import { SearchOutlined, EllipsisOutlined, EyeOutlined, MessageOutlined, UserOutlined, EyeFilled, MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './CustomerList.css';
 import '../../../styles/CommonTag.css';
@@ -46,28 +46,6 @@ const CustomerList = () => {
             lastRoom: '303 - Standard Room',
             gender: 'male'
         },
-        {
-            key: '4',
-            customerId: 'KH004',
-            name: 'Đặng Văn D',
-            email: 'dangvand@gmail.com',
-            phone: '0934567890',
-            lastCheckout: '2024-03-02',
-            avatar: null,
-            lastRoom: '404 - Deluxe Room',
-            gender: 'male'
-        },
-        {
-            key: '5',
-            customerId: 'KH005',
-            name: 'Nguyễn Thị E',
-            email: 'nguyenthi@gmail.com',
-            phone: '0945678901',
-            lastCheckout: '2024-02-28',
-            avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
-            lastRoom: '505 - Premium Room',
-            gender: 'female'
-        },
     ];
 
     const columns = [
@@ -75,7 +53,7 @@ const CustomerList = () => {
             title: 'Ảnh đại diện',
             dataIndex: 'avatar',
             key: 'avatar',
-            width: 100,
+            align: 'center',
             render: (avatar) => (
                 <Avatar
                     size={40}
@@ -88,20 +66,18 @@ const CustomerList = () => {
             title: 'Tên khách hàng',
             dataIndex: 'name',
             key: 'name',
-            width: 200,
             render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
-            width: 200,
         },
         {
             title: 'Giới tính',
             dataIndex: 'gender',
             key: 'gender',
-            width: 100,
+            align: 'center',
             render: (gender) => (
                 <Tag className={`gender-tag ${gender}`}>
                     {gender === 'male' ? 'Nam' : 'Nữ'}
@@ -112,38 +88,35 @@ const CustomerList = () => {
             title: 'Số điện thoại',
             dataIndex: 'phone',
             key: 'phone',
-            width: 150,
         },
         {
             title: 'Phòng đã đặt',
             dataIndex: 'lastRoom',
             key: 'lastRoom',
-            width: 200,
         },
         {
             title: 'Lần cuối checkout',
             dataIndex: 'lastCheckout',
             key: 'lastCheckout',
-            width: 150,
             render: (date) => (
                 <Text>{new Date(date).toLocaleDateString('vi-VN')}</Text>
             ),
         },
         {
             key: 'action',
-            width: 80,
             align: 'center',
+            width: 60,
             render: (_, record) => {
                 const items = [
                     {
                         key: '1',
-                        icon: <EyeOutlined />,
+                        icon: <EyeFilled />,
                         label: 'Chi tiết',
                         onClick: () => navigate(`/homestay/customers/${record.customerId}`),
                     },
                     {
                         key: '2',
-                        icon: <MessageOutlined />,
+                        icon: <MessageFilled />,
                         label: 'Nhắn tin',
                         onClick: () => handleMessage(record),
                     },
@@ -152,7 +125,7 @@ const CustomerList = () => {
                 return (
                     <Dropdown
                         menu={{ items }}
-                        trigger={['click']}
+                        trigger={['hover']}
                         placement="bottomRight"
                     >
                         <Button
@@ -168,7 +141,6 @@ const CustomerList = () => {
     ];
 
     const handleMessage = (customer) => {
-        // Handle message logic
         console.log('Message to:', customer.name);
     };
 

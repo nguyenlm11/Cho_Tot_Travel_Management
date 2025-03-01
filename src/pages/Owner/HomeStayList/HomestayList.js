@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Table, Card, Button, Space, Input, Tooltip, Typography, Badge, Dropdown, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, EyeOutlined, SearchOutlined, StarFilled, DeleteOutlined, EllipsisOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useContext } from 'react';
+import { Table, Card, Button, Input, Typography, Tag, Dropdown, Menu } from 'antd';
+import { PlusOutlined, SearchOutlined, EllipsisOutlined, EyeFilled, EditFilled, DeleteFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { HomestayContext } from '../../../contexts/HomestayContext';
 import './HomestayList.css';
 import '../../../styles/CommonTag.css';
 
@@ -10,92 +11,56 @@ const { Title, Text } = Typography;
 
 const HomestayList = () => {
     const navigate = useNavigate();
+    const { setSelectedHomestay } = useContext(HomestayContext);
     const [loading, setLoading] = useState(false);
+    const [homestays, setHomestays] = useState([]);
+    const [error, setError] = useState(null);
 
-    const data = [
-        {
-            key: '1',
-            homestayId: 'HS001',
-            name: 'Sunset Beach Villa',
-            address: '123 Beach Road, Vũng Tàu',
-            status: 'active',
-            rooms: 5,
-            rating: 4.5,
-        },
-        {
-            key: '2',
-            homestayId: 'HS002',
-            name: 'Mountain View Homestay',
-            address: '456 Highland St, Đà Lạt',
-            status: 'active',
-            rooms: 3,
-            rating: 4.8,
-        },
-        {
-            key: '3',
-            homestayId: 'HS003',
-            name: 'City Center Apartment',
-            address: '789 Nguyen Hue, Ho Chi Minh City',
-            status: 'inactive',
-            rooms: 2,
-            rating: 4.2,
-        },
-        {
-            key: '4',
-            homestayId: 'HS003',
-            name: 'City Center Apartment',
-            address: '789 Nguyen Hue, Ho Chi Minh City',
-            status: 'inactive',
-            rooms: 2,
-            rating: 4.2,
-        },
-        {
-            key: '5',
-            homestayId: 'HS003',
-            name: 'City Center Apartment',
-            address: '789 Nguyen Hue, Ho Chi Minh City',
-            status: 'inactive',
-            rooms: 2,
-            rating: 4.2,
-        },
-        {
-            key: '6',
-            homestayId: 'HS003',
-            name: 'City Center Apartment',
-            address: '789 Nguyen Hue, Ho Chi Minh City',
-            status: 'inactive',
-            rooms: 2,
-            rating: 4.2,
-        },
-    ];
+    const fetchHomestays = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('https://653d1d13f52310ee6a99e3b7.mockapi.io/homestay');
+            if (!response.ok) {
+                throw new Error(`Lỗi fetch: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setHomestays(data);
+        } catch (err) {
+            console.error('Fetch homestays error:', err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchHomestays();
+    }, []);
 
     const columns = [
         {
             title: 'Mã Homestay',
-            dataIndex: 'homestayId',
-            key: 'homestayId',
-            width: 80,
+            dataIndex: 'property_id',
+            width: 130,
+            key: 'property_id',
             render: (text) => <Text type="secondary">#{text}</Text>,
         },
         {
             title: 'Tên Homestay',
-            dataIndex: 'name',
-            key: 'name',
-            width: 150,
+            dataIndex: 'property_name',
+            key: 'property_name',
             render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Địa chỉ',
             dataIndex: 'address',
             key: 'address',
-            width: 200,
             ellipsis: true,
         },
         {
-            title: 'Số phòng',
-            dataIndex: 'rooms',
-            key: 'rooms',
-            width: 70,
+            title: 'Đơn/Cụm',
+            dataIndex: 'structure_mode',
+            key: 'structure_mode',
             render: (text) => <Text strong>{text}</Text>,
         },
         {
@@ -106,51 +71,57 @@ const HomestayList = () => {
             render: (status) => {
                 const config = {
                     active: { text: 'Đang hoạt động', class: 'active' },
-                    inactive: { text: 'Tạm ngưng', class: 'inactive' }
+                    inactive: { text: 'Tạm ngưng', class: 'inactive' },
                 };
                 return (
-                    <Tag className={`status-tag ${config[status].class}`}>
-                        {config[status].text}
+                    <Tag className={`status-tag ${config[status]?.class || ''}`}>
+                        {config[status]?.text || status}
                     </Tag>
                 );
             },
         },
         {
-            width: 30,
+            key: 'action',
             align: 'center',
+            width: 70,
             render: (_, record) => {
                 const items = [
                     {
                         key: '1',
-                        icon: <EyeOutlined />,
+                        icon: <EyeFilled />,
                         label: 'Quản lý',
-                        onClick: () => navigate(`/homestay/${record.homestayId}/dashboard`),
+                        onClick: () => {
+                            setSelectedHomestay(record);
+                            navigate(`/homestay/${record.property_id}/dashboard`);
+                        }
                     },
                     {
                         key: '2',
-                        icon: <EditOutlined />,
+                        icon: <EditFilled />,
                         label: 'Chỉnh sửa',
-                        onClick: () => navigate(`/homestay/${record.homestayId}/edit-homestay`),
+                        onClick: () => navigate(`/homestay/${record.property_id}/edit-homestay`)
                     },
                     {
                         key: '3',
-                        icon: <DeleteOutlined />,
+                        icon: <DeleteFilled />,
                         label: 'Xóa',
                         danger: true,
+                        onClick: () => console.log(`Xóa homestay ${record.property_id}`)
                     },
                 ];
 
                 return (
                     <Dropdown
                         menu={{ items }}
-                        trigger={['click']}
+                        trigger={['hover']}
                         placement="bottomRight"
+                        arrow
                     >
                         <Button
                             type="text"
                             icon={<EllipsisOutlined />}
                             className="action-button"
-                            size='large'
+                            size="large"
                         />
                     </Dropdown>
                 );
@@ -164,7 +135,6 @@ const HomestayList = () => {
                 <div className="card-header">
                     <Title level={2}>Danh sách Homestay</Title>
                 </div>
-
                 <div className="search-section">
                     <Search
                         placeholder="Tìm kiếm theo tên homestay hoặc địa chỉ..."
@@ -183,16 +153,20 @@ const HomestayList = () => {
                         Thêm Homestay
                     </Button>
                 </div>
-
+                {error && (
+                    <div className="error-message">
+                        <Text type="danger">Lỗi: {error}</Text>
+                    </div>
+                )}
                 <Table
                     columns={columns}
-                    dataSource={data}
+                    dataSource={homestays}
                     loading={loading}
                     pagination={{
-                        total: data.length,
+                        total: homestays.length,
                         pageSize: 10,
                         showTotal: (total) => `Tổng số ${total} homestay`,
-                        className: "homestay-pagination"
+                        className: "homestay-pagination",
                     }}
                     className="homestay-table"
                 />
@@ -201,4 +175,4 @@ const HomestayList = () => {
     );
 };
 
-export default HomestayList; 
+export default HomestayList;
