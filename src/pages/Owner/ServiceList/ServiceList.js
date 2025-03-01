@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Card, Button, Space, Input, Modal, Form, InputNumber, Select, Typography, Badge, Dropdown, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, EyeOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Table, Card, Button, Input, Modal, Form, InputNumber, Select, Typography, Dropdown, Tag } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, EllipsisOutlined } from '@ant-design/icons';
 import './ServiceList.css';
 import '../../../styles/CommonTag.css';
 
@@ -39,22 +39,6 @@ const ServiceList = () => {
             price: 300000,
             description: 'Dịch vụ đưa đón sân bay',
         },
-        {
-            key: '3',
-            serviceId: 'SV003',
-            serviceName: 'Đưa đón sân bay',
-            status: 'inactive',
-            price: 300000,
-            description: 'Dịch vụ đưa đón sân bay',
-        },
-        {
-            key: '3',
-            serviceId: 'SV003',
-            serviceName: 'Đưa đón sân bay',
-            status: 'inactive',
-            price: 300000,
-            description: 'Dịch vụ đưa đón sân bay',
-        }
     ];
 
     const columns = [
@@ -62,28 +46,28 @@ const ServiceList = () => {
             title: 'Mã dịch vụ',
             dataIndex: 'serviceId',
             key: 'serviceId',
-            width: 120,
+            width: 110,
             render: (text) => <Text type="secondary">#{text}</Text>,
         },
         {
             title: 'Tên dịch vụ',
             dataIndex: 'serviceName',
             key: 'serviceName',
-            width: 200,
+            // width: 200,
             render: (text) => <Text strong>{text}</Text>,
         },
         {
             title: 'Mô tả',
             dataIndex: 'description',
             key: 'description',
-            width: 250,
+            // width: 250,
             ellipsis: true,
         },
         {
             title: 'Giá dịch vụ',
             dataIndex: 'price',
             key: 'price',
-            width: 150,
+            align: 'center',
             render: (price) => (
                 <Text strong style={{ color: '#52c41a' }}>
                     {new Intl.NumberFormat('vi-VN').format(price)} đ
@@ -94,7 +78,7 @@ const ServiceList = () => {
             title: 'Trạng thái',
             dataIndex: 'status',
             key: 'status',
-            width: 150,
+            align: 'center',
             render: (status) => {
                 const config = {
                     active: { text: 'Hoạt động', class: 'active' },
@@ -110,7 +94,7 @@ const ServiceList = () => {
         {
             key: 'action',
             align: 'center',
-            width: 80,
+            width: 60,
             render: (_, record) => {
                 const items = [
                     {
@@ -131,7 +115,7 @@ const ServiceList = () => {
                 return (
                     <Dropdown
                         menu={{ items }}
-                        trigger="click"
+                        trigger={['hover']}
                         placement="bottomRight"
                     >
                         <Button
@@ -159,9 +143,7 @@ const ServiceList = () => {
             okText: 'Xóa',
             cancelText: 'Hủy',
             okButtonProps: { danger: true },
-            onOk: () => {
-                // Handle delete logic here
-            },
+            onOk: () => { },
         });
     };
 
@@ -204,16 +186,16 @@ const ServiceList = () => {
                 </div>
 
                 <Table
+                    className="service-table"
                     columns={columns}
                     dataSource={data}
                     loading={loading}
                     pagination={{
                         total: data.length,
                         pageSize: 10,
-                        showTotal: (total) => `Tổng số ${total} dịch vụ`,
+                        showTotal: (total) => `${total} dịch vụ`,
                         className: "service-pagination"
                     }}
-                    className="service-table"
                 />
 
                 <Modal

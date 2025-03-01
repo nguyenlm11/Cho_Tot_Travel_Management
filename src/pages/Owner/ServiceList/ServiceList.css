@@ -17,12 +17,9 @@
 /* Card styles */
 .service-card {
   background: #fff;
+  border-radius: 0;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-}
-
-.service-card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
 .ant-card-head {
@@ -79,7 +76,6 @@
 /* Table styles */
 .ant-table-wrapper {
   background: #fff;
-  /* border-radius: 12px; */
   overflow: hidden;
 }
 
@@ -109,7 +105,7 @@
 .ant-tag {
   min-width: 100px;
   text-align: center;
-  padding: 4px 12px;
+  padding: 4px 10px;
   font-size: 14px;
   border-radius: 6px;
   font-weight: 500;
@@ -234,7 +230,7 @@
 
 .service-card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 

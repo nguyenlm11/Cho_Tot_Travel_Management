@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Avatar, Badge, Dropdown, Space, Button, Input, Divider } from 'antd';
-import { BellOutlined, UserOutlined, LogoutOutlined, SettingOutlined, SearchOutlined } from '@ant-design/icons';
+import { BellOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import './Header.css';
 
 const { Header: AntHeader } = Layout;
@@ -71,7 +71,7 @@ const Header = ({ userRole }) => {
             <div className="header-right">
                 <Space size="large">
                     <Dropdown
-                        overlay={notificationMenu}
+                        menu={notificationMenu}
                         trigger={['click']}
                         placement="bottomRight"
                     >
