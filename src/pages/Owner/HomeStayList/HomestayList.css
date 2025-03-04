@@ -1,224 +1,190 @@
+/* Container */
 .homestay-list-container {
-    background: #f0f2f5;
-    min-height: 100%;
+    background: #fff;
+    min-height: 100vh;
 }
 
+/* Card */
 .homestay-card {
     background: #fff;
-    border-radius: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 0 !important;
 }
 
-.card-header {
+/* Toolbar */
+.toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    padding: 0 4px;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
 }
 
-.card-header h2 {
-    margin: 0;
-    color: #1a1a1a;
+.toolbar .ant-input-search {
+    border-radius: 4px;
 }
 
-.search-section {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-}
-
-.search-input {
-    max-width: 500px;
-}
-
-.search-input .ant-input {
-    border-radius: 8px;
-}
-
-.add-button {
+.toolbar .ant-input-search .ant-btn {
     background: #30B53E;
     border-color: #30B53E;
-    border-radius: 8px;
-    height: 40px;
-    padding: 0 24px;
+    color: #fff;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.toolbar .ant-input-search .ant-btn:hover {
+    background: #28A035;
+    border-color: #28A035;
+}
+
+.toolbar .ant-btn-primary {
+    background: #30B53E;
+    border-color: #30B53E;
+    border-radius: 4px;
+    padding: 6px 16px;
+    color: #fff;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
 }
 
-.add-button:hover {
-    background: #28A035 !important;
-    border-color: #28A035 !important;
+.toolbar .ant-btn-primary:hover {
+    background: #28A035;
+    border-color: #28A035;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(48, 181, 62, 0.2);
+    box-shadow: 0 2px 8px rgba(48, 181, 62, 0.3);
 }
 
-/* Table Styling */
-.homestay-table {
-    margin-top: 8px;
-    border: 1px solid #E0E0E0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+/* Table */
+.ant-table-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
 }
 
-.homestay-table .ant-table-thead>tr>th {
+.ant-table-thead>tr>th {
     background: #30B53E !important;
+    color: #fff;
     font-weight: 600;
-    padding: 16px;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid #28A035;
+}
+
+.ant-table-tbody>tr>td {
+    padding: 12px 16px !important;
+    color: #333;
+    border-bottom: 1px solid #e8e8e8;
+    transition: background 0.3s;
+}
+
+.table-row:hover>td {
+    background: #f0f5ff !important;
+}
+
+/* Tag */
+.ant-tag {
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 2px;
     color: #fff;
 }
 
-.homestay-name {
-    font-size: 15px;
-    color: #1a1a1a;
-}
-
-.homestay-id {
-    font-size: 13px;
-}
-
-.status-badge {
-    font-size: 14px;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* Dropdown Button */
+.ant-btn-text {
+    padding: 4px;
+    border-radius: 2px;
     color: #666;
 }
 
-.room-badge {
-    background: #e6f7ff;
-    color: #1890ff;
-    border-radius: 12px;
-    padding: 2px 8px;
+.ant-btn-text:hover {
+    background: #f5f5f5;
+    color: #30B53E;
 }
 
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #faad14;
+/* Spinner */
+.ant-spin-dot-item {
+    background-color: #30B53E !important;
 }
 
-.star-icon {
-    font-size: 14px;
+.ant-spin-text {
+    color: #30B53E !important;
 }
 
-.action-buttons {
-    display: flex;
-    gap: 8px;
+/* Error Message */
+.error-message {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #fff2f0;
+    border-radius: 4px;
+    text-align: center;
 }
 
-.manage-button {
+/* Pagination */
+.ant-pagination {
+    margin-top: 16px;
+}
+
+.ant-pagination-item {
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+}
+
+.ant-pagination-item:hover {
+    border-color: #30B53E;
+    color: #30B53E;
+}
+
+.ant-pagination-item-active {
     background: #30B53E;
     border-color: #30B53E;
 }
 
-.manage-button:hover {
-    background: #28A035 !important;
-    border-color: #28A035 !important;
+.ant-pagination-item-active a {
+    color: #fff;
 }
 
-.edit-button {
-    border-color: #d9d9d9;
-    color: #fff !important
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+    color: #333;
 }
 
-.edit-button:hover {
-    border-color: #30B53E !important;
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+    border-color: #30B53E;
+    color: #30B53E;
 }
 
-.custom-pagination {
-    margin-top: 16px;
-    text-align: right;
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Responsive Design */
+.homestay-list-container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .homestay-list-container {
         padding: 16px;
     }
 
-    .card-header {
+    .toolbar {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
+        align-items: stretch;
     }
 
-    .search-input {
-        width: 100%;
-        max-width: none;
+    .toolbar .ant-input-search {
+        width: 100% !important;
+        margin-bottom: 12px;
     }
-
-    .add-button {
-        width: 100%;
-    }
-}
-
-.homestay-toolbar {
-    margin-bottom: 16px;
-}
-
-.actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-@media (max-width: 576px) {
-    .actions {
-        justify-content: flex-start;
-    }
-}
-
-.ant-table-thead>tr>th {
-    background: #f5f5f5;
-    font-weight: 600;
-}
-
-.ant-card-head-title {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.homestay-pagination {
-    margin-top: 16px;
-    padding: 16px 0;
-    text-align: right;
-}
-
-.homestay-pagination .ant-pagination-item {
-    border-radius: 6px;
-    border: 1px solid #d9d9d9;
-    transition: all 0.3s;
-}
-
-.homestay-pagination .ant-pagination-item:hover {
-    border-color: #30B53E;
-    color: #30B53E;
-}
-
-.homestay-pagination .ant-pagination-item-active {
-    background: #30B53E;
-    border-color: #30B53E;
-}
-
-.homestay-pagination .ant-pagination-item-active a {
-    color: #fff;
-}
-
-.homestay-pagination .ant-pagination-prev:hover .ant-pagination-item-link,
-.homestay-pagination .ant-pagination-next:hover .ant-pagination-item-link {
-    border-color: #30B53E;
-    color: #30B53E;
-}
-
-.homestay-pagination .ant-select:hover .ant-select-selector {
-    border-color: #30B53E;
-}
-
-.homestay-pagination .ant-pagination-options-quick-jumper input:hover,
-.homestay-pagination .ant-pagination-options-quick-jumper input:focus {
-    border-color: #30B53E;
 }

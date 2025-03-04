@@ -1,3 +1,4 @@
+/* Header */
 .header {
   background: #fff;
   height: 64px;
@@ -5,36 +6,43 @@
   align-items: center;
   justify-content: flex-end;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  width: 100%;
+  padding: 0 24px;
 }
 
-.search-input {
-  width: 100%;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-}
-
-.notification-button {
-  padding: 4px 8px;
-  height: 40px;
-  width: 40px;
-}
-
+/* User Info */
 .user-info {
   cursor: pointer;
   padding: 4px 8px;
+  transition: all 0.3s;
+}
+
+.user-info:hover {
+  background: #f0f5ff;
+  border-radius: 4px;
 }
 
 .user-name {
   font-weight: 500;
   margin-left: 8px;
+  color: #333;
 }
 
+/* Notification Button */
+.ant-btn-text {
+  color: #666;
+}
+
+.ant-btn-text:hover {
+  color: #30B53E;
+  background: #f0f5ff;
+}
+
+/* Notification Dropdown */
 .notification-menu {
   width: 360px;
+  padding: 0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .notification-header {
@@ -42,59 +50,77 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #f5f7fa;
 }
 
-.notification-header span {
+.notification-header .ant-menu-title-content {
   font-weight: 600;
   font-size: 16px;
+  color: #333;
 }
 
 .notification-item {
-  padding: 12px 16px !important;
+  padding: 0 !important;
   margin: 0 !important;
 }
 
 .notification {
-  padding: 8px 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .notification.unread {
-  background-color: #f0f7ff;
-}
-
-.notification-title {
-  font-weight: 500;
-  margin-bottom: 4px;
+  background: #e6f7ee;
 }
 
 .notification-description {
-  color: #666;
+  display: block;
   font-size: 13px;
-  margin-bottom: 4px;
+  margin: 4px 0;
 }
 
 .notification-time {
-  color: #999;
+  display: block;
   font-size: 12px;
 }
 
+/* Notification Footer */
 .notification-footer {
   text-align: center;
-  padding: 8px !important;
+  padding: 8px 0 !important;
 }
 
+/* Badge */
+.ant-badge-count {
+  background: #30B53E;
+  color: #fff;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .header {
-    padding: 0 12px !important;
-    width: 100%;
+    padding: 0 16px;
   }
 
   .user-name {
     display: none;
-  }
-
-  .search-input {
-    max-width: 200px;
   }
 
   .notification-menu {

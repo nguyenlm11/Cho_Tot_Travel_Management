@@ -9,8 +9,8 @@ const Review = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedStars, setSelectedStars] = useState(null); 
-    const reviewsPerPage = 3;
+    const [selectedStars, setSelectedStars] = useState(null);
+    const reviewsPerPage = 5;
 
     useEffect(() => {
         setTimeout(() => {
@@ -21,7 +21,7 @@ const Review = () => {
                     reviewContent: 'Phòng ở sạch sẽ, dịch vụ tốt. Mình rất hài lòng với trải nghiệm ở đây!',
                     reviewImages: [
                         'https://buffer.com/library/content/images/2023/09/instagram-image-size.jpg',
-                        'https://via.placeholder.com/150',
+                        'https://buffer.com/library/content/images/2023/09/instagram-image-size.jpg',
                     ],
                     reviewTime: '2025-02-17T22:07:00Z',
                     reviewStars: 5,
@@ -44,13 +44,20 @@ const Review = () => {
                     reviewTime: '2024-12-01T20:47:00Z',
                     reviewStars: 4,
                 },
+                {
+                    id: 4,
+                    reviewerName: 'thangwinnie',
+                    reviewContent: 'Nhà nghỉ hơi ồn vào ban đêm. Cần cải thiện cách âm và dịch vụ dọn phòng.',
+                    reviewImages: [],
+                    reviewTime: '2024-12-01T20:47:00Z',
+                    reviewStars: 1,
+                },
             ];
             setReviews(sampleReviews);
             setLoading(false);
         }, 1000);
     }, []);
 
-    // Tính toán tổng số sao và số lượng đánh giá theo từng sao
     const calculateRatingSummary = () => {
         const totalReviews = reviews.length;
         const starCounts = reviews.reduce((acc, review) => {
@@ -62,105 +69,83 @@ const Review = () => {
             ? reviews.reduce((sum, review) => sum + review.reviewStars, 0) / totalReviews
             : 0;
 
-        return {
-            average: averageRating.toFixed(1),
-            counts: starCounts,
-        };
+        return { average: averageRating.toFixed(1), counts: starCounts };
     };
 
     const ratingSummary = calculateRatingSummary();
 
-    // Lọc review dựa trên số sao được chọn
     const filteredReviews = selectedStars === null
         ? reviews
         : reviews.filter(review => review.reviewStars === selectedStars);
 
-    // Phân trang
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
     const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
+    const handlePageChange = (page) => setCurrentPage(page);
     const handleStarFilter = (stars) => {
-        setSelectedStars(stars === selectedStars ? null : stars); // Nhấp lại để quay về "Tất Cả"
-        setCurrentPage(1); // Reset về trang 1 khi thay đổi filter
+        setSelectedStars(stars === selectedStars ? null : stars);
+        setCurrentPage(1);
     };
 
     return (
         <div className="review-container">
-            <div className="review-summary">
+            <Card className="review-summary">
                 <div className="summary-header">
-                    <Rate disabled value={5} className="summary-rate" />
-                    <Title level={4} className="summary-average">
-                        {ratingSummary.average} trên 5
-                    </Title>
+                    <Title level={3} style={{ margin: 0 }}>Đánh giá của khách hàng</Title>
                 </div>
-                <div className="summary-details">
-                    <div className="summary-breakdown">
+                <div className="summary-rating">
+                    <Rate disabled value={parseFloat(ratingSummary.average)} allowHalf />
+                    <Text strong className="summary-average">{ratingSummary.average} / 5</Text>
+                    <Text type="secondary">({reviews.length} đánh giá)</Text>
+                </div>
+                <div className="summary-filters">
+                    <Text
+                        className={`filter-item ${selectedStars === null ? 'active' : ''}`}
+                        onClick={() => handleStarFilter(null)}
+                    >
+                        Tất cả ({reviews.length})
+                    </Text>
+                    {Array.from({ length: 5 }, (_, i) => 5 - i).map((stars) => (
                         <Text
-                            className={`summary-label ${selectedStars === null ? 'active' : ''}`}
-                            onClick={() => handleStarFilter(null)}
-                            style={{ cursor: 'pointer' }}
+                            key={stars}
+                            className={`filter-item ${selectedStars === stars ? 'active' : ''}`}
+                            onClick={() => handleStarFilter(stars)}
                         >
-                            Tất Cả
+                            {stars} sao ({ratingSummary.counts[stars] || 0})
                         </Text>
-                        {Array.from({ length: 5 }, (_, i) => 5 - i).map((stars) => (
-                            <div
-                                key={stars}
-                                className={`summary-star-count ${selectedStars === stars ? 'active' : ''}`}
-                                onClick={() => handleStarFilter(stars)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <Text>{stars} Sao</Text>
-                                <Text className="summary-count">
-                                    ({ratingSummary.counts[stars] || 0})
-                                </Text>
-                            </div>
-                        ))}
-                    </div>
+                    ))}
                 </div>
-            </div>
+            </Card>
 
-            {loading ? (
-                <div className="loading-container">
-                    <Spin size="large" tip="Đang tải đánh giá..." />
-                </div>
-            ) : (
+            <Spin spinning={loading} className="loading-spinner">
                 <div className="review-list">
                     {currentReviews.length > 0 ? (
                         currentReviews.map((item) => (
                             <Card key={item.id} className="review-card">
                                 <div className="review-header">
-                                    <Avatar size={40} className="review-avatar">
+                                    <Avatar size={48} style={{ backgroundColor: '#30B53E' }}>
                                         {item.reviewerName.charAt(0).toUpperCase()}
                                     </Avatar>
                                     <div className="review-info">
-                                        <Title level={5} className="review-name">
-                                            {item.reviewerName}
-                                        </Title>
+                                        <Text strong>{item.reviewerName}</Text>
                                         <div className="review-meta">
-                                            <Rate disabled value={item.reviewStars} className="review-rate" />
-                                            <Text className="review-time">
-                                                {dayjs(item.reviewTime).format('YYYY-MM-DD HH:mm')}
+                                            <Rate disabled value={item.reviewStars} />
+                                            <Text type="secondary">
+                                                {dayjs(item.reviewTime).format('DD/MM/YYYY HH:mm')}
                                             </Text>
                                         </div>
                                     </div>
                                 </div>
-                                <Paragraph className="review-content">
-                                    {item.reviewContent}
-                                </Paragraph>
-                                {item.reviewImages && item.reviewImages.length > 0 && (
+                                <Paragraph className="review-content">{item.reviewContent}</Paragraph>
+                                {item.reviewImages.length > 0 && (
                                     <div className="review-images">
                                         {item.reviewImages.map((img, index) => (
                                             <Image
                                                 key={index}
-                                                width={100}
-                                                height={100}
+                                                width={80}
+                                                height={80}
                                                 src={img}
-                                                className="review-image"
                                                 preview
                                             />
                                         ))}
@@ -169,17 +154,16 @@ const Review = () => {
                             </Card>
                         ))
                     ) : (
-                        <Text className="no-reviews">Không có đánh giá nào với số sao này</Text>
+                        <Text type="secondary" className="no-reviews">Không có đánh giá nào với số sao này</Text>
                     )}
                     <Pagination
                         current={currentPage}
                         total={filteredReviews.length}
                         pageSize={reviewsPerPage}
                         onChange={handlePageChange}
-                        className="review-pagination"
                     />
                 </div>
-            )}
+            </Spin>
         </div>
     );
 };
