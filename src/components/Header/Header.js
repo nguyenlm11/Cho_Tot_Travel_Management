@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Avatar, Badge, Dropdown, Space, Button, Input, Divider } from 'antd';
+import { Layout, Menu, Avatar, Badge, Dropdown, Space, Button, Typography } from 'antd';
 import { BellOutlined, UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import './Header.css';
 
 const { Header: AntHeader } = Layout;
-const { Search } = Input;
+const { Text } = Typography;
 
 const Header = ({ userRole }) => {
     const [notifications] = useState([
@@ -26,76 +26,60 @@ const Header = ({ userRole }) => {
 
     const notificationMenu = (
         <Menu className="notification-menu">
-            <div className="notification-header">
-                <span>Thông báo</span>
-                <Button type="link">Đánh dấu đã đọc tất cả</Button>
-            </div>
-            <Divider style={{ margin: '0' }} />
+            <Menu.ItemGroup title="Thông báo" className="notification-header">
+                <Button type="link" size="small">Đánh dấu đã đọc tất cả</Button>
+            </Menu.ItemGroup>
             {notifications.map((notification) => (
                 <Menu.Item key={notification.id} className="notification-item">
                     <div className={`notification ${notification.unread ? 'unread' : ''}`}>
-                        <div className="notification-title">{notification.title}</div>
-                        <div className="notification-description">
+                        <Text strong>{notification.title}</Text>
+                        <Text type="secondary" className="notification-description">
                             {notification.description}
-                        </div>
-                        <div className="notification-time">{notification.time}</div>
+                        </Text>
+                        <Text type="secondary" className="notification-time">
+                            {notification.time}
+                        </Text>
                     </div>
                 </Menu.Item>
             ))}
-            <Divider style={{ margin: '0' }} />
             <Menu.Item className="notification-footer">
-                <Button type="link" block>
-                    Xem tất cả
-                </Button>
-            </Menu.Item>
-        </Menu>
-    );
-
-    const userMenu = (
-        <Menu>
-            <Menu.Item key="profile" icon={<UserOutlined />}>
-                Thông tin cá nhân
-            </Menu.Item>
-            <Menu.Item key="settings" icon={<SettingOutlined />}>
-                Cài đặt
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="logout" icon={<LogoutOutlined />} danger>
-                Đăng xuất
+                <Button type="link" block>Xem tất cả</Button>
             </Menu.Item>
         </Menu>
     );
 
     return (
         <AntHeader className="header">
-            <div className="header-right">
-                <Space size="large">
-                    <Dropdown
-                        menu={notificationMenu}
-                        trigger={['click']}
-                        placement="bottomRight"
-                    >
-                        <Badge count={notifications.filter(n => n.unread).length}>
-                            <Button
-                                type="text"
-                                icon={<BellOutlined />}
-                                className="notification-button"
-                            />
-                        </Badge>
-                    </Dropdown>
-
-                    <Dropdown overlay={userMenu} trigger={['click']}>
-                        <Space className="user-info">
-                            <Avatar size="large" icon={<UserOutlined />} />
-                            <span className="user-name">
-                                {userRole === 'admin' ? 'Admin' : 'Owner'} Name
-                            </span>
-                        </Space>
-                    </Dropdown>
-                </Space>
-            </div>
+            <Space size="large">
+                <Dropdown overlay={notificationMenu} trigger={['click']} placement="bottomRight">
+                    <Badge count={notifications.filter(n => n.unread).length}>
+                        <Button
+                            type="text"
+                            icon={<BellOutlined />}
+                            size="large"
+                        />
+                    </Badge>
+                </Dropdown>
+                <Dropdown
+                    menu={{
+                        items: [
+                            { key: 'profile', icon: <UserOutlined />, label: 'Thông tin cá nhân' },
+                            { key: 'setting', icon: <SettingOutlined />, label: 'Cài đặt' },
+                            { key: 'logout', icon: <LogoutOutlined />, label: 'Đăng xuất', danger: true },
+                        ]
+                    }}
+                    trigger={['click']} placement="bottomRight"
+                >
+                    <Space className="user-info">
+                        <Avatar size="large" icon={<UserOutlined />} />
+                        <Text strong className="user-name">
+                            {userRole === 'admin' ? 'Admin' : 'Owner'} Name
+                        </Text>
+                    </Space>
+                </Dropdown>
+            </Space>
         </AntHeader>
     );
 };
 
-export default Header; 
+export default Header;

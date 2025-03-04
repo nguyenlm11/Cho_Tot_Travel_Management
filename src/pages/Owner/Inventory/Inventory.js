@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Card, Table, Button, Input, Modal, Form, InputNumber, Typography, Dropdown, Tag } from 'antd';
 import { PlusOutlined, EllipsisOutlined, SearchOutlined, EditFilled, DeleteFilled } from '@ant-design/icons';
 import './Inventory.css';
-import '../../../styles/CommonTag.css';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -13,12 +12,11 @@ const Inventory = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
     const [form] = Form.useForm();
+    const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
-        // Giả lập dữ liệu tồn kho
         const fetchData = async () => {
             setLoading(true);
-            // Thay thế bằng API thực tế
             const inventoryData = [
                 { key: '1', roomType: 'Phòng đơn', total: 10, available: 5, price: 500000, status: 'active' },
                 { key: '2', roomType: 'Phòng đôi', total: 8, available: 3, price: 500000, status: 'active' },
@@ -27,9 +25,12 @@ const Inventory = () => {
             setData(inventoryData);
             setLoading(false);
         };
-
         fetchData();
     }, []);
+
+    const filteredData = data.filter(item =>
+        item.roomType.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     const handleAdd = () => {
         setEditingItem(null);
@@ -55,6 +56,7 @@ const Inventory = () => {
                 setData([...data, { key: Date.now().toString(), ...values }]);
             }
             setIsModalVisible(false);
+            form.resetFields();
         });
     };
 
@@ -66,14 +68,15 @@ const Inventory = () => {
             render: (text) => <Text strong>{text}</Text>,
         },
         {
-            title: 'Giá phòng',
+            title: 'Giá phòng (VNĐ)',
             dataIndex: 'price',
             key: 'price',
             align: 'center',
-            render: (price) =>
-                <Text strong style={{ color: '#52c41a' }}>
-                    {new Intl.NumberFormat('vi-VN').format(price)} đ
-                </Text>,
+            render: (price) => (
+                <Text strong style={{ color: '#30B53E' }}>
+                    {new Intl.NumberFormat('vi-VN').format(price)}
+                </Text>
+            ),
         },
         {
             title: 'Tổng số phòng',
@@ -92,122 +95,114 @@ const Inventory = () => {
             dataIndex: 'status',
             key: 'status',
             align: 'center',
-            render: (status) => {
-                const config = {
-                    active: { text: 'Hoạt động', class: 'active' },
-                    inactive: { text: 'Tạm ngưng', class: 'inactive' }
-                };
-                return (
-                    <Tag className={`status-tag ${config[status].class}`}>
-                        {config[status].text}
-                    </Tag>
-                );
-            }
+            render: (status) => (
+                <Tag color={status === 'active' ? '#30B53E' : '#f5222d'} style={{ padding: '2px 10px' }}>
+                    {status === 'active' ? 'Hoạt động' : 'Tạm ngưng'}
+                </Tag>
+            ),
         },
         {
             key: 'action',
             align: 'center',
-            width: 60,
-            render: () => {
-                const items = [
-                    {
-                        key: '1',
-                        icon: <EditFilled />,
-                        label: 'Chỉnh sửa',
-                        onClick: () => handleEdit(),
-                    },
-                    {
-                        key: '2',
-                        icon: <DeleteFilled />,
-                        label: 'Xóa',
-                        danger: true,
-                        onClick: () => handleDelete(),
-                    },
-                ];
-                return (
-                    <Dropdown
-                        menu={{ items }}
-                        trigger={['hover']}
-                    >
-                        <Button type="text" icon={<EllipsisOutlined />} />
-                    </Dropdown >
-                )
-            },
+            width: 80,
+            render: (_, record) => (
+                <Dropdown
+                    menu={{
+                        items: [
+                            {
+                                key: '1',
+                                icon: <EditFilled />,
+                                label: 'Chỉnh sửa',
+                                onClick: () => handleEdit(record),
+                            },
+                            {
+                                key: '2',
+                                icon: <DeleteFilled />,
+                                label: 'Xóa',
+                                danger: true,
+                                onClick: () => handleDelete(record.key),
+                            },
+                        ],
+                    }}
+                    trigger={['click']}
+                >
+                    <Button type="text" icon={<EllipsisOutlined />} />
+                </Dropdown>
+            ),
         },
     ];
 
     return (
         <div className="inventory-list-container">
             <Card className="inventory-card">
-                <div className="card-header">
-                    <Title level={2}>Tồn kho & Loại Phòng</Title>
-                </div>
-
-                <div className="search-section">
+                <Title level={3} style={{ margin: 0 }}>Tồn kho & Loại Phòng</Title>
+                <div className="toolbar">
                     <Search
                         placeholder="Tìm kiếm theo loại phòng..."
                         allowClear
-                        enterButton={<SearchOutlined />}
-                        size="large"
-                        className="search-input"
+                        onChange={(e) => setSearchText(e.target.value)}
+                        prefix={<SearchOutlined />}
+                        style={{ width: 300 }}
                     />
                     <Button
                         type="primary"
                         icon={<PlusOutlined />}
-                        size="large"
                         onClick={handleAdd}
-                        className="add-button"
                     >
                         Thêm loại phòng
                     </Button>
                 </div>
 
                 <Table
-                    className='inventory-table'
                     columns={columns}
-                    dataSource={data}
+                    dataSource={filteredData}
                     loading={loading}
                     pagination={{
-                        total: data.length,
+                        total: filteredData.length,
                         pageSize: 10,
-                        showTotal: (total) => `${total} loại phòng`,
-                        className: "inventory-pagination"
+                        showTotal: (total) => `Tổng: ${total} loại phòng`,
                     }}
+                    rowClassName="table-row"
                 />
-            </Card>
 
-            <Modal
-                title={editingItem ? 'Chỉnh sửa loại phòng' : 'Thêm loại phòng'}
-                open={isModalVisible}
-                onOk={handleModalOk}
-                onCancel={() => setIsModalVisible(false)}
-            >
-                <Form form={form} layout="vertical">
-                    <Form.Item
-                        name="roomType"
-                        label="Tên loại phòng"
-                        rules={[{ required: true, message: 'Vui lòng nhập tên loại phòng' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="total"
-                        label="Tổng số phòng"
-                        rules={[{ required: true, message: 'Vui lòng nhập tổng số phòng' }]}
-                    >
-                        <InputNumber min={0} style={{ width: '100%' }} />
-                    </Form.Item>
-                    <Form.Item
-                        name="available"
-                        label="Số phòng còn lại"
-                        rules={[{ required: true, message: 'Vui lòng nhập số phòng còn lại' }]}
-                    >
-                        <InputNumber min={0} style={{ width: '100%' }} />
-                    </Form.Item>
-                </Form>
-            </Modal>
+                <Modal
+                    title={editingItem ? 'Chỉnh sửa loại phòng' : 'Thêm loại phòng'}
+                    open={isModalVisible}
+                    onOk={handleModalOk}
+                    onCancel={() => {
+                        setIsModalVisible(false);
+                        form.resetFields();
+                    }}
+                    okText={editingItem ? 'Cập nhật' : 'Thêm'}
+                    cancelText="Hủy"
+                >
+                    <Form form={form} layout="vertical">
+                        <Form.Item
+                            name="roomType"
+                            label="Tên loại phòng"
+                            rules={[{ required: true, message: 'Vui lòng nhập tên loại phòng' }]}
+                        >
+                            <Input placeholder="Nhập tên loại phòng" />
+                        </Form.Item>
+                        <Form.Item
+                            name="total"
+                            label="Tổng số phòng"
+                            rules={[{ required: true, message: 'Vui lòng nhập tổng số phòng' }]}
+                        >
+                            <InputNumber min={0} style={{ width: '100%' }} placeholder="Nhập tổng số phòng" />
+                        </Form.Item>
+                        <Form.Item
+                            name="available"
+                            label="Số phòng còn lại"
+                            rules={[{ required: true, message: 'Vui lòng nhập số phòng còn lại' }]}
+                        >
+                            <InputNumber min={0} style={{ width: '100%' }} placeholder="Nhập số phòng còn lại" />
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </Card>
         </div>
     );
 };
 
-export default Inventory; 
+export default Inventory;

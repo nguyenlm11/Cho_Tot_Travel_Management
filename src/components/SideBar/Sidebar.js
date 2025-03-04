@@ -29,22 +29,31 @@ const Sidebar = ({ userRole }) => {
   const [isManagingHomestay, setIsManagingHomestay] = useState(false);
   const [selectedHomestayId, setSelectedHomestayId] = useState(null);
   const [openKeys, setOpenKeys] = useState([]);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
+  const FETCH_COOLDOWN = 5000;
 
   useEffect(() => {
     const fetchHomestayData = async (id) => {
+      const now = Date.now();
+      if (now - lastFetchTime < FETCH_COOLDOWN) {
+        // console.log('Skipping fetch due to cooldown');
+        return;
+      }
+
       try {
         const response = await fetch(`https://653d1d13f52310ee6a99e3b7.mockapi.io/homestay/${id}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
         setSelectedHomestay(data);
+        setLastFetchTime(now); 
       } catch (error) {
-        console.error('Error fetching homestay data:', error);
+        console.error('Error fetching homestay data:', error.message);
+        setSelectedHomestay(null); 
       }
     };
 
-    // Nếu đường dẫn chính là danh sách homestay
     if (location.pathname === '/homestays') {
       setSelectedHomestayId(null);
       setIsManagingHomestay(false);
@@ -155,14 +164,12 @@ const Sidebar = ({ userRole }) => {
         navigate('/homestays');
       },
     },
-  ];
-
-  const effectiveHomestayMenuItems = homestayManagementMenuItems.filter(item => item);
+  ].filter(item => item);
 
   const menuItems = userRole === 'admin'
     ? []
     : isManagingHomestay
-      ? effectiveHomestayMenuItems
+      ? homestayManagementMenuItems
       : defaultOwnerMenuItems;
 
   const onOpenChange = (keys) => {

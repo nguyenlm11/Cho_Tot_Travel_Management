@@ -6,6 +6,7 @@ import CustomerList from '../pages/Owner/CustomerList/CustomerList';
 import Inventory from '../pages/Owner/Inventory/Inventory';
 import Setting from '../pages/Owner/SettingPage/Setting';
 import Review from '../pages/Owner/ReviewPage/ReviewPage';
+import Voucher from '../pages/Owner/Voucher/Voucher';
 
 // Routes cho Admin
 const adminRoutes = [
@@ -68,6 +69,10 @@ const ownerRoutes = [
     {
         path: '/homestay/:id/customers',
         element: <CustomerList />,
+    },
+    {
+        path: '/homestay/:id/vouchers',
+        element: <Voucher />,
     },
     {
         path: '/homestay/:id/reviews',
