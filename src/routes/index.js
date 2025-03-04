@@ -5,6 +5,7 @@ import HomestayList from '../pages/Owner/HomeStayList/HomestayList';
 import CustomerList from '../pages/Owner/CustomerList/CustomerList';
 import Inventory from '../pages/Owner/Inventory/Inventory';
 import Setting from '../pages/Owner/SettingPage/Setting';
+import Review from '../pages/Owner/ReviewPage/ReviewPage';
 
 // Routes cho Admin
 const adminRoutes = [
@@ -70,7 +71,7 @@ const ownerRoutes = [
     },
     {
         path: '/homestay/:id/reviews',
-        element: <div>Đánh giá</div>,
+        element: <Review />,
     },
     {
         path: '/homestay/:id/settings',
