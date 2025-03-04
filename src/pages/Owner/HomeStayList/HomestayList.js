@@ -153,11 +153,6 @@ const HomestayList = () => {
                         Thêm Homestay
                     </Button>
                 </div>
-                {error && (
-                    <div className="error-message">
-                        <Text type="danger">Lỗi: {error}</Text>
-                    </div>
-                )}
                 <Table
                     columns={columns}
                     dataSource={homestays}
