@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { adminRoutes, ownerRoutes, commonRoutes } from './routes';
 import './App.css';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const { Content } = Layout;
 
@@ -19,30 +20,65 @@ function App() {
         <Layout>
           <Header userRole={userRole} />
           <Content className='main-content'>
-            <Routes>
-              {/* Common routes */}
-              {commonRoutes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={
-                    typeof route.element === 'function'
-                      ? route.element({ userRole })
-                      : route.element
-                  }
-                />
-              ))}
+            <AnimatePresence mode="wait">
+              <Routes>
+                {/* Common routes */}
+                {commonRoutes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {typeof route.element === 'function'
+                          ? route.element({ userRole })
+                          : route.element}
+                      </motion.div>
+                    }
+                  />
+                ))}
 
-              {/* Role-specific routes */}
-              {userRole === 'admin'
-                ? adminRoutes.map((route) => (
-                  <Route key={route.path} path={route.path} element={route.element} />
-                ))
-                : ownerRoutes.map((route) => (
-                  <Route key={route.path} path={route.path} element={route.element} />
-                ))
-              }
-            </Routes>
+                {/* Role-specific routes */}
+                {userRole === 'admin'
+                  ? adminRoutes.map((route) => (
+                    <Route 
+                      key={route.path} 
+                      path={route.path} 
+                      element={
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {route.element}
+                        </motion.div>
+                      } 
+                    />
+                  ))
+                  : ownerRoutes.map((route) => (
+                    <Route 
+                      key={route.path} 
+                      path={route.path} 
+                      element={
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {route.element}
+                        </motion.div>
+                      } 
+                    />
+                  ))
+                }
+              </Routes>
+            </AnimatePresence>
           </Content>
           <Footer />
         </Layout>

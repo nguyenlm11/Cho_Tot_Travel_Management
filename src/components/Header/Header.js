@@ -48,36 +48,66 @@ const Header = ({ userRole }) => {
         </Menu>
     );
 
+    const userMenu = (
+        <Menu className="user-menu">
+            <Menu.Item key="profile" icon={<UserOutlined />} onClick={() => {}}>
+                Thông tin cá nhân
+            </Menu.Item>
+            <Menu.Item key="setting" icon={<SettingOutlined />} onClick={() => {}}>
+                Cài đặt
+            </Menu.Item>
+            <Menu.Item key="logout" icon={<LogoutOutlined />} danger onClick={() => {}}>
+                Đăng xuất
+            </Menu.Item>
+        </Menu>
+    );
+
+    const unreadCount = notifications.filter(n => n.unread).length;
+
     return (
-        <AntHeader className="header">
-            <Space size="large">
-                <Dropdown overlay={notificationMenu} trigger={['click']} placement="bottomRight">
-                    <Badge count={notifications.filter(n => n.unread).length}>
-                        <Button
-                            type="text"
-                            icon={<BellOutlined />}
-                            size="large"
-                        />
-                    </Badge>
-                </Dropdown>
-                <Dropdown
-                    menu={{
-                        items: [
-                            { key: 'profile', icon: <UserOutlined />, label: 'Thông tin cá nhân' },
-                            { key: 'setting', icon: <SettingOutlined />, label: 'Cài đặt' },
-                            { key: 'logout', icon: <LogoutOutlined />, label: 'Đăng xuất', danger: true },
-                        ]
-                    }}
-                    trigger={['click']} placement="bottomRight"
-                >
-                    <Space className="user-info">
-                        <Avatar size="large" icon={<UserOutlined />} />
-                        <Text strong className="user-name">
-                            {userRole === 'admin' ? 'Admin' : 'Owner'} Name
-                        </Text>
+        <AntHeader className="site-header">
+            <div className="header-content">
+                <div className="header-left">
+                    <div className="logo-container">
+                        <img src="/logo.svg" alt="Logo" className="logo" />
+                        <Typography.Title level={4} className="site-title">Cho Tốt Travel</Typography.Title>
+                    </div>
+                </div>
+                
+                <div className="header-right">
+                    <Space size={16}>
+                        <Dropdown
+                            overlay={notificationMenu}
+                            trigger={['click']}
+                            placement="bottomRight"
+                            arrow
+                        >
+                            <Badge count={unreadCount} size="small">
+                                <Button
+                                    type="text"
+                                    icon={<BellOutlined style={{ fontSize: '20px' }} />}
+                                    className="notification-button"
+                                />
+                            </Badge>
+                        </Dropdown>
+                        
+                        <Dropdown
+                            overlay={userMenu}
+                            trigger={['click']}
+                            placement="bottomRight"
+                            arrow
+                        >
+                            <div className="user-profile">
+                                <Avatar size={36} icon={<UserOutlined />} className="user-avatar" />
+                                <div className="user-info">
+                                    <Text strong>Nguyễn Văn A</Text>
+                                    <Text type="secondary" className="user-role">{userRole === 'admin' ? 'Quản trị viên' : 'Chủ nhà'}</Text>
+                                </div>
+                            </div>
+                        </Dropdown>
                     </Space>
-                </Dropdown>
-            </Space>
+                </div>
+            </div>
         </AntHeader>
     );
 };

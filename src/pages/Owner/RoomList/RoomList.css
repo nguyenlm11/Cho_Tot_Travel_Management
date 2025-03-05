@@ -1,12 +1,11 @@
 .room-list-container {
-    background: #f0f2f5;
-    min-height: 100%;
+    padding: var(--spacing-md);
 }
 
 .room-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: var(--neutral-100);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 }
 
 .card-header {
@@ -183,4 +182,135 @@
     .add-button {
         width: 100%;
     }
+}
+
+.page-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.page-header .ant-typography-secondary {
+    margin-top: var(--spacing-xs);
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.toolbar-left, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.ant-table {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+    background: var(--neutral-200);
+    font-weight: 600;
+}
+
+.ant-table-row {
+    transition: all 0.3s ease;
+}
+
+.ant-table-row:hover {
+    transform: translateY(-2px);
+}
+
+/* Status tags */
+.status-tag {
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 12px;
+    border: none;
+}
+
+.status-tag.available {
+    background: var(--success-light);
+    color: var(--success-color);
+}
+
+.status-tag.occupied {
+    background: var(--info-light);
+    color: var(--info-color);
+}
+
+.status-tag.maintenance {
+    background: var(--warning-light);
+    color: var(--warning-color);
+}
+
+/* Room type tags */
+.room-type-tag {
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-weight: 500;
+    font-size: 12px;
+    background: var(--primary-light);
+    color: var(--primary-color);
+    border: none;
+}
+
+/* Price display */
+.price-display {
+    font-weight: 600;
+    color: var(--neutral-900);
+}
+
+/* Bed count display */
+.bed-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bed-icon {
+    color: var(--info-color);
+}
+
+/* Empty state */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Animation cho các hành động */
+.ant-btn, .ant-dropdown-trigger {
+    transition: all 0.3s ease;
+}
+
+.ant-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Card hover effect */
+.ant-card {
+    transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+    box-shadow: var(--shadow-md);
 }
