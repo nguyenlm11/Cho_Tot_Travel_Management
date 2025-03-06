@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Table, Card, Input, Typography, Button, Dropdown, Avatar, Tag } from 'antd';
-import { SearchOutlined, EllipsisOutlined, EyeFilled, MessageFilled, UserOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Table, Card, Input, Typography, Button, Space, Statistic, Tooltip, Row, Col, Empty } from 'antd';
+import { SearchOutlined, EyeOutlined, MessageOutlined, TeamOutlined, CalendarOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './CustomerList.css';
 
@@ -11,6 +11,18 @@ const CustomerList = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [animateStatistics, setAnimateStatistics] = useState(false);
+
+    // Hiệu ứng khi component mount
+    useEffect(() => {
+        // Giả lập loading
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            // Kích hoạt animation cho thống kê
+            setAnimateStatistics(true);
+        }, 800);
+    }, []);
 
     const data = [
         {
@@ -21,7 +33,7 @@ const CustomerList = () => {
             phone: '0901234567',
             lastCheckout: '2024-03-15',
             lastRoom: '101 - Deluxe Room',
-            gender: 'male',
+            bookings: 5
         },
         {
             key: '2',
@@ -31,7 +43,7 @@ const CustomerList = () => {
             phone: '0912345678',
             lastCheckout: '2024-03-10',
             lastRoom: '202 - Suite Room',
-            gender: 'female',
+            bookings: 3
         },
         {
             key: '3',
@@ -41,43 +53,79 @@ const CustomerList = () => {
             phone: '0923456789',
             lastCheckout: '2024-03-05',
             lastRoom: '303 - Standard Room',
-            gender: 'male',
+            bookings: 2
         },
+        {
+            key: '4',
+            customerId: 'KH004',
+            name: 'Phạm Thị D',
+            email: 'phamthid@gmail.com',
+            phone: '0934567890',
+            lastCheckout: '2024-02-28',
+            lastRoom: '404 - Family Room',
+            bookings: 1
+        },
+        {
+            key: '5',
+            customerId: 'KH005',
+            name: 'Hoàng Văn E',
+            email: 'hoangvane@gmail.com',
+            phone: '0945678901',
+            lastCheckout: '2024-02-20',
+            lastRoom: '505 - Deluxe Room',
+            bookings: 4
+        }
     ];
 
-    const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.phone.includes(searchText)
-    );
+    // Lọc dữ liệu theo tìm kiếm
+    const filteredData = data.filter(item => {
+        const matchesSearch =
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.email.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.phone.includes(searchText);
+        return matchesSearch;
+    });
+
+    // Thống kê
+    const totalCustomers = data.length;
+
+    const handleMessage = (customer) => {
+        console.log('Message to:', customer.name);
+    };
 
     const columns = [
         {
-            title: 'Tên khách hàng',
+            title: 'Khách hàng',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <Text strong>{text}</Text>,
-        },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
-        },
-        {
-            title: 'Giới tính',
-            dataIndex: 'gender',
-            key: 'gender',
-            align: 'center',
-            render: (gender) => (
-                <Tag color={gender === 'male' ? '#30B53E' : '#f5222d'} style={{ padding: '2px 10px' }}>
-                    {gender === 'male' ? 'Nam' : 'Nữ'}
-                </Tag>
+            render: (text, record) => (
+                <div>
+                    <Text strong>{text}</Text>
+                    <div>
+                        <Text type="secondary" style={{ fontSize: '12px' }}>#{record.customerId}</Text>
+                    </div>
+                </div>
             ),
         },
         {
-            title: 'Số điện thoại',
-            dataIndex: 'phone',
-            key: 'phone',
+            title: 'Liên hệ',
+            dataIndex: 'email',
+            key: 'email',
+            render: (email, record) => (
+                <div>
+                    <div>{email}</div>
+                    <div>{record.phone}</div>
+                </div>
+            ),
+        },
+        {
+            title: 'Số lần đặt phòng',
+            dataIndex: 'bookings',
+            key: 'bookings',
+            align: 'center',
+            render: (bookings) => (
+                <Text strong style={{ color: '#1890ff' }}>{bookings}</Text>
+            ),
         },
         {
             title: 'Phòng đã đặt',
@@ -89,68 +137,92 @@ const CustomerList = () => {
             dataIndex: 'lastCheckout',
             key: 'lastCheckout',
             render: (date) => (
-                <Text>{new Date(date).toLocaleDateString('vi-VN')}</Text>
+                <Space>
+                    <CalendarOutlined style={{ color: '#1890ff' }} />
+                    <Text>{new Date(date).toLocaleDateString('vi-VN')}</Text>
+                </Space>
             ),
         },
         {
             key: 'action',
+            title: 'Thao tác',
             align: 'center',
-            width: 80,
+            width: 180,
             render: (_, record) => (
-                <Dropdown
-                    menu={{
-                        items: [
-                            {
-                                key: '1',
-                                icon: <EyeFilled />,
-                                label: 'Chi tiết',
-                                onClick: () => navigate(`/homestay/customers/${record.customerId}`),
-                            },
-                            {
-                                key: '2',
-                                icon: <MessageFilled />,
-                                label: 'Nhắn tin',
-                                onClick: () => handleMessage(record),
-                            },
-                        ],
-                    }}
-                    trigger={['click']}
-                >
-                    <Button type="text" icon={<EllipsisOutlined />} />
-                </Dropdown>
+                <Space size="small">
+                    <Tooltip title="Xem chi tiết">
+                        <Button
+                            type="primary"
+                            icon={<EyeOutlined />}
+                            size="small"
+                            onClick={() => navigate(`/homestay/customers/${record.customerId}`)}
+                            className="view-button"
+                        />
+                    </Tooltip>
+                    <Tooltip title="Nhắn tin">
+                        <Button
+                            icon={<MessageOutlined />}
+                            size="small"
+                            onClick={() => handleMessage(record)}
+                            className="message-button"
+                        />
+                    </Tooltip>
+                </Space>
             ),
         },
     ];
 
-    const handleMessage = (customer) => {
-        console.log('Message to:', customer.name);
-    };
-
     return (
         <div className="customer-list-container">
             <Card className="customer-card">
-                <Title level={3} style={{ margin: 0 }}>Danh sách khách hàng</Title>
-                <div className="toolbar">
-                    <Search
-                        placeholder="Tìm kiếm theo tên, email hoặc số điện thoại..."
-                        allowClear
-                        onChange={(e) => setSearchText(e.target.value)}
-                        prefix={<SearchOutlined />}
-                        style={{ width: 300 }}
-                    />
-                </div>
+                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                    <div className="page-header">
+                        <Title level={3}>Danh sách khách hàng</Title>
+                    </div>
 
-                <Table
-                    columns={columns}
-                    dataSource={filteredData}
-                    loading={loading}
-                    pagination={{
-                        total: filteredData.length,
-                        pageSize: 10,
-                        showTotal: (total) => `Tổng: ${total} khách hàng`,
-                    }}
-                    rowClassName="table-row"
-                />
+                    {/* Thống kê */}
+                    <Row gutter={16} className={`statistics-row ${animateStatistics ? 'animate' : ''}`}>
+                        <Col xs={24}>
+                            <Card className="statistic-card total">
+                                <Statistic
+                                    title="Tổng số khách hàng"
+                                    value={totalCustomers}
+                                    prefix={<TeamOutlined className="statistic-icon" />}
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
+
+                    {/* Thanh công cụ */}
+                    <div className="toolbar">
+                        <div className="toolbar-left">
+                            <Search
+                                placeholder="Tìm kiếm theo tên, email hoặc số điện thoại..."
+                                allowClear
+                                onChange={(e) => setSearchText(e.target.value)}
+                                prefix={<SearchOutlined />}
+                                className="search-input"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Nội dung chính */}
+                    <div className="content-container">
+                        <Table
+                            columns={columns}
+                            dataSource={filteredData}
+                            loading={loading}
+                            pagination={{
+                                pageSize: 10,
+                            }}
+                            rowClassName={(record, index) => `table-row animate-row-${index % 2}`}
+                            className="customer-table"
+                            locale={{
+                                emptyText: <Empty description="Không tìm thấy khách hàng nào" />
+                            }}
+                        />
+                    </div>
+                </Space>
             </Card>
         </div>
     );

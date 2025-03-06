@@ -85,14 +85,16 @@
 }
 
 .header-title h3 {
-    margin-bottom: var(--spacing-xs);
-    font-weight: 600;
-    color: var(--neutral-900);
+    margin: 0;
+    color: var(--text-color);
+    position: relative;
+    padding-left: 16px;
 }
 
 .header-title .ant-typography-secondary {
     color: var(--neutral-700);
     font-size: 16px;
+    padding-left: 16px;
 }
 
 .add-button {
@@ -422,7 +424,7 @@
 }
 
 .action-button.delete:hover {
-    background: #CF1322;
+    background: #CF1322 !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 77, 79, 0.2);
 }

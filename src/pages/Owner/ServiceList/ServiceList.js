@@ -8,7 +8,9 @@ import {
     AppstoreOutlined, BarsOutlined, CheckCircleOutlined,
     StopOutlined, ShoppingOutlined, DollarOutlined,
     ReloadOutlined,
-    CloseCircleOutlined
+    CloseCircleOutlined,
+    DeleteFilled,
+    EditFilled
 } from '@ant-design/icons';
 import './ServiceList.css';
 
@@ -137,19 +139,17 @@ const ServiceList = () => {
                     <Tooltip title="Chỉnh sửa">
                         <Button
                             type="primary"
-                            icon={<EditOutlined />}
-                            size="small"
+                            icon={<EditFilled />}
                             onClick={() => handleEdit(record)}
-                            className="edit-button"
+                            className="action-button edit"
                         />
                     </Tooltip>
                     <Tooltip title="Xóa">
                         <Button
                             danger
-                            icon={<DeleteOutlined />}
-                            size="small"
+                            icon={<DeleteFilled />}
                             onClick={() => handleDelete(record)}
-                            className="delete-button"
+                            className="action-button delete"
                         />
                     </Tooltip>
                 </Space>
@@ -359,9 +359,6 @@ const ServiceList = () => {
                                 loading={loading}
                                 pagination={{
                                     pageSize: 10,
-                                    showTotal: (total) => `Tổng: ${total} dịch vụ`,
-                                    showSizeChanger: true,
-                                    pageSizeOptions: ['5', '10', '20']
                                 }}
                                 rowClassName={(record, index) => `table-row animate-row-${index % 2}`}
                                 className="service-table"

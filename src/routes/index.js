@@ -7,7 +7,26 @@ import Inventory from '../pages/Owner/Inventory/Inventory';
 import Setting from '../pages/Owner/SettingPage/Setting';
 import Review from '../pages/Owner/ReviewPage/ReviewPage';
 import Voucher from '../pages/Owner/Voucher/Voucher';
+import HomestayDetail from '../pages/Owner/HomeStayDetail/HomestayDetail';
+import Login from '../pages/Auth/Login';
 import DashboardOwner from '../pages/Owner/Dashboard/DashboardOwner';
+
+// Auth routes
+const authRoutes = [
+    {
+        path: '/login',
+        element: <Login />,
+    },
+    {
+        path: '/register',
+        element: <div>Đăng ký</div>,
+    },
+    {
+        path: '/forgot-password',
+        element: <div>Quên mật khẩu</div>,
+    },
+];
+
 
 // Routes cho Admin
 const adminRoutes = [
@@ -49,7 +68,7 @@ const ownerRoutes = [
     },
     {
         path: '/homestay/:id/dashboard',
-        element: <div>Tổng quan Homestay</div>,
+        element: <HomestayDetail />,
     },
     {
         path: '/homestay/:id/inventory',
@@ -110,6 +129,10 @@ const commonRoutes = [
         path: '/settings',
         element: <div>Cài đặt tài khoản</div>,
     },
+    {
+        path: '/profile',
+        element: <div>Thông tin cá nhân</div>,
+    },
 ];
 
-export { adminRoutes, ownerRoutes, commonRoutes }; 
+export { authRoutes, adminRoutes, ownerRoutes, commonRoutes };
