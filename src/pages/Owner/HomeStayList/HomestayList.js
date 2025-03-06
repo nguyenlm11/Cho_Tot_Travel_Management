@@ -137,7 +137,7 @@ const HomestayList = () => {
                             className="action-button view"
                             onClick={() => {
                                 setSelectedHomestay(record);
-                                navigate(`/homestay/${record.property_id}/dashboard`);
+                                navigate(`/homestay/${record.id}/dashboard`);
                             }}
                         />
                     </Tooltip>
@@ -146,7 +146,7 @@ const HomestayList = () => {
                             type="primary"
                             icon={<EditFilled />}
                             className="action-button edit"
-                            onClick={() => navigate(`/homestay/${record.property_id}/edit-homestay`)}
+                            onClick={() => navigate(`/homestay/${record.id}/edit-homestay`)}
                         />
                     </Tooltip>
                     <Tooltip title="Xóa">
@@ -154,7 +154,7 @@ const HomestayList = () => {
                             type="primary"
                             icon={<DeleteFilled />}
                             className="action-button delete"
-                            onClick={() => handleDelete(record.property_id)}
+                            onClick={() => handleDelete(record.id)}
                         />
                     </Tooltip>
                 </Space>
@@ -164,7 +164,7 @@ const HomestayList = () => {
 
     // Render card view cho homestay
     const renderHomestayCard = (homestay) => (
-        <Col xs={24} sm={12} md={8} lg={6} key={homestay.property_id}>
+        <Col xs={24} sm={12} md={8} lg={6} key={homestay.id}>
             <Card
                 hoverable
                 className={`homestay-grid-card ${homestay.status}`}
@@ -196,7 +196,6 @@ const HomestayList = () => {
                     </Text>
                     <div className="card-footer">
                         <Tag className="structure-tag">{homestay.structure_mode}</Tag>
-                        <Text className="property-id">#{homestay.property_id}</Text>
                     </div>
 
                     <div className="card-actions">
@@ -206,7 +205,7 @@ const HomestayList = () => {
                             className="card-action-button view"
                             onClick={() => {
                                 setSelectedHomestay(homestay);
-                                navigate(`/homestay/${homestay.property_id}/dashboard`);
+                                navigate(`/homestay/${homestay.id}/dashboard`);
                             }}
                         >
                         </Button>
@@ -214,14 +213,14 @@ const HomestayList = () => {
                             type="primary"
                             icon={<EditFilled />}
                             className="card-action-button edit"
-                            onClick={() => navigate(`/homestay/${homestay.property_id}/edit-homestay`)}
+                            onClick={() => navigate(`/homestay/${homestay.id}/edit-homestay`)}
                         >
                         </Button>
                         <Button
                             type="primary"
                             icon={<DeleteFilled />}
                             className="card-action-button delete"
-                            onClick={() => handleDelete(homestay.property_id)}
+                            onClick={() => handleDelete(homestay.id)}
                         >
                         </Button>
                     </div>
@@ -283,7 +282,7 @@ const HomestayList = () => {
                 </Row>
             </div>
 
-            <Card className="homestay-card" bordered={false}>
+            <Card className="homestay-card" variant={false}>
                 <div className="toolbar">
                     <div className="toolbar-left">
                         <Segmented

@@ -1,0 +1,407 @@
+/* Biến CSS */
+:root {
+  --primary-color: #1890ff;
+  --secondary-color: #52c41a;
+  --danger-color: #f5222d;
+  --warning-color: #faad14;
+  --text-color: #333;
+  --text-secondary: #666;
+  --border-radius: 8px;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition-speed: 0.3s;
+}
+
+/* Container chính */
+.homestay-detail-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.homestay-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header và breadcrumb */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-text {
+  margin-right: 16px;
+}
+
+/* Thống kê */
+.stats-row {
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.total-bookings .ant-statistic-title,
+.total-bookings .ant-statistic-content {
+  color: #1890ff;
+}
+
+.upcoming-bookings .ant-statistic-title,
+.upcoming-bookings .ant-statistic-content {
+  color: #722ed1;
+}
+
+.room-stats .ant-statistic-title,
+.room-stats .ant-statistic-content {
+  color: #52c41a;
+}
+
+.revenue .ant-statistic-title,
+.revenue .ant-statistic-content {
+  color: #fa8c16;
+}
+
+.ant-statistic-content-prefix {
+  margin-right: 8px;
+}
+
+/* Thông tin homestay */
+.info-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.homestay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.location-rating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.location {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Gallery hình ảnh */
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.main-image {
+  width: 100%;
+  height: 400px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.main-image:hover img {
+  transform: scale(1.05);
+}
+
+.thumbnail-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.thumbnail {
+  height: 120px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.thumbnail:hover img {
+  transform: scale(1.1);
+}
+
+/* Skeleton loading */
+.image-gallery-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.main-image-skeleton {
+  width: 100%;
+  height: 400px;
+}
+
+.thumbnail-container-skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.thumbnail-skeleton {
+  height: 120px;
+}
+
+/* Mô tả */
+.homestay-description {
+  margin: 24px 0;
+  line-height: 1.8;
+}
+
+/* Tiện ích */
+.amenities-section {
+  margin: 24px 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.amenities-list {
+  margin-top: 16px;
+}
+
+.amenity-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.amenity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.amenity-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.amenity-icon {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+.amenity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.amenity-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Quick actions */
+.quick-actions {
+  margin: 24px 0;
+}
+
+/* Form chỉnh sửa */
+.edit-form-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.ant-upload-list-picture-card-container {
+  width: 120px;
+  height: 120px;
+}
+
+.ant-upload.ant-upload-select-picture-card {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--border-radius);
+}
+
+/* Modal xem ảnh */
+.image-preview-modal .ant-modal-content {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.image-preview-modal .ant-modal-close {
+  color: white;
+}
+
+.image-preview-modal img {
+  border-radius: var(--border-radius);
+}
+
+/* Owner view specific */
+.owner-view .ant-card {
+  transition: all var(--transition-speed);
+}
+
+.owner-view .ant-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .image-gallery {
+    flex-direction: column;
+  }
+  
+  .main-image {
+    height: 300px;
+  }
+  
+  .thumbnail-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .thumbnail {
+    height: 100px;
+  }
+  
+  .location-rating {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  .homestay-detail-container {
+    padding: 16px;
+  }
+  
+  .main-image {
+    height: 200px;
+  }
+  
+  .thumbnail {
+    height: 80px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.homestay-detail-content {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
