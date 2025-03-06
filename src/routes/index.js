@@ -7,6 +7,7 @@ import Inventory from '../pages/Owner/Inventory/Inventory';
 import Setting from '../pages/Owner/SettingPage/Setting';
 import Review from '../pages/Owner/ReviewPage/ReviewPage';
 import Voucher from '../pages/Owner/Voucher/Voucher';
+import DashboardOwner from '../pages/Owner/Dashboard/DashboardOwner';
 
 // Routes cho Admin
 const adminRoutes = [
@@ -82,6 +83,11 @@ const ownerRoutes = [
         path: '/homestay/:id/settings',
         element: <Setting />
     },
+    {
+        path: '/dashboardOwner',
+        element: <DashboardOwner />,
+    },
+
 ];
 
 // Routes chung
