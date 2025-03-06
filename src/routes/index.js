@@ -9,6 +9,7 @@ import Review from '../pages/Owner/ReviewPage/ReviewPage';
 import Voucher from '../pages/Owner/Voucher/Voucher';
 import HomestayDetail from '../pages/Owner/HomeStayDetail/HomestayDetail';
 import Login from '../pages/Auth/Login';
+import DashboardOwner from '../pages/Owner/Dashboard/DashboardOwner';
 
 // Auth routes
 const authRoutes = [
@@ -25,6 +26,7 @@ const authRoutes = [
         element: <div>Quên mật khẩu</div>,
     },
 ];
+
 
 // Routes cho Admin
 const adminRoutes = [
@@ -100,6 +102,11 @@ const ownerRoutes = [
         path: '/homestay/:id/settings',
         element: <Setting />
     },
+    {
+        path: '/dashboardOwner',
+        element: <DashboardOwner />,
+    },
+
 ];
 
 // Routes chung

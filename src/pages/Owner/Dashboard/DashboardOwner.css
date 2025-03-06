@@ -1,0 +1,26 @@
+.homestay-list-container {
+    padding: var(--spacing-md);
+    background: var(--neutral-200);
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+
+.stat-card.total {
+    background: linear-gradient(135deg, #F6FFED 0%, #FFFFFF 100%);
+    border-left: 4px solid var(--primary-color);
+    padding: 10px;
+}
+
+.stat-card.active {
+    background: linear-gradient(135deg, #F6FFED 0%, #FFFFFF 100%);
+    border-left: 4px solid var(--success-color);
+    padding: 10px;
+}
+
+.stat-card.inactive {
+    background: linear-gradient(135deg, #F6FFED 0%, #FFFFFF 100%);
+    border-left: 4px solid var(--success-color);
+    padding: 10px;
+}

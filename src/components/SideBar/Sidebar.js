@@ -3,7 +3,8 @@ import { Layout, Menu, Typography } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AppstoreFilled, GiftFilled, KeyOutlined, PlusOutlined, ArrowLeftOutlined, StarFilled, SettingFilled,
-  HomeFilled, IdcardFilled, BookFilled, ShoppingFilled, BankFilled
+  HomeFilled, IdcardFilled, BookFilled, ShoppingFilled, BankFilled,
+  BankOutlined
 } from '@ant-design/icons';
 import { HomestayContext } from '../../contexts/HomestayContext';
 import './Sidebar.css';
@@ -47,10 +48,10 @@ const Sidebar = ({ userRole }) => {
         }
         const data = await response.json();
         setSelectedHomestay(data);
-        setLastFetchTime(now); 
+        setLastFetchTime(now);
       } catch (error) {
         console.error('Error fetching homestay data:', error.message);
-        setSelectedHomestay(null); 
+        setSelectedHomestay(null);
       }
     };
 
@@ -87,11 +88,18 @@ const Sidebar = ({ userRole }) => {
       onClick: () => navigate('/homestays'),
     },
     {
+      key: 'dashboard',
+      icon: <BankOutlined />,
+      label: 'Quản lý doanh thu',
+      onClick: () => navigate('/dashboardOwner'),
+    },
+    {
       key: 'add-homestay',
       icon: <PlusOutlined />,
       label: 'Thêm Homestay mới',
       onClick: () => navigate('/homestay/new'),
     },
+
   ];
 
   const homestayManagementMenuItems = [
