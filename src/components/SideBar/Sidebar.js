@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AppstoreFilled, GiftFilled, KeyOutlined, PlusOutlined, ArrowLeftOutlined, StarFilled, SettingFilled,
   HomeFilled, IdcardFilled, BookFilled, ShoppingFilled, BankFilled,
-  BankOutlined
+  BankOutlined, UserOutlined, TeamOutlined, CheckCircleOutlined, DollarOutlined
 } from '@ant-design/icons';
 import { HomestayContext } from '../../contexts/HomestayContext';
 import './Sidebar.css';
@@ -37,7 +37,6 @@ const Sidebar = ({ userRole }) => {
     const fetchHomestayData = async (id) => {
       const now = Date.now();
       if (now - lastFetchTime < FETCH_COOLDOWN) {
-        // console.log('Skipping fetch due to cooldown');
         return;
       }
 
@@ -99,7 +98,6 @@ const Sidebar = ({ userRole }) => {
       label: 'Thêm Homestay mới',
       onClick: () => navigate('/homestay/new'),
     },
-
   ];
 
   const homestayManagementMenuItems = [
@@ -174,8 +172,74 @@ const Sidebar = ({ userRole }) => {
     },
   ].filter(item => item);
 
+  const adminMenuItems = [
+    {
+      key: 'users',
+      icon: <TeamOutlined />,
+      label: 'Quản lý người dùng',
+      children: [
+        {
+          key: 'homestay-owners',
+          icon: <UserOutlined />,
+          label: 'Chủ nhà nghỉ',
+          onClick: () => navigate('/admin/users/owners'),
+        },
+        {
+          key: 'customers',
+          icon: <IdcardFilled />,
+          label: 'Khách hàng',
+          onClick: () => navigate('/admin/users/customers'),
+        },
+      ],
+    },
+    {
+      key: 'homestays',
+      icon: <HomeFilled />,
+      label: 'Quản lý nhà nghỉ',
+      children: [
+        {
+          key: 'all-homestays',
+          icon: <BankFilled />,
+          label: 'Tất cả nhà nghỉ',
+          onClick: () => navigate('/admin/homestays/all'),
+        },
+        {
+          key: 'verify-homestays',
+          icon: <CheckCircleOutlined />,
+          label: 'Xác nhận nhà nghỉ',
+          onClick: () => navigate('/admin/homestays/verify'),
+        },
+      ],
+    },
+    {
+      key: 'revenue',
+      icon: <DollarOutlined />,
+      label: 'Quản lý doanh thu',
+      children: [
+        {
+          key: 'total-revenue',
+          icon: <BankOutlined />,
+          label: 'Tổng doanh thu',
+          onClick: () => navigate('/admin/revenue/total'),
+        },
+        {
+          key: 'commission',
+          icon: <DollarOutlined />,
+          label: 'Quản lý hoa hồng',
+          onClick: () => navigate('/admin/revenue/commission'),
+        },
+      ],
+    },
+    {
+      key: 'settings',
+      icon: <SettingFilled />,
+      label: 'Cài đặt hệ thống',
+      onClick: () => navigate('/admin/settings'),
+    },
+  ];
+
   const menuItems = userRole === 'admin'
-    ? []
+    ? adminMenuItems
     : isManagingHomestay
       ? homestayManagementMenuItems
       : defaultOwnerMenuItems;
