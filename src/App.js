@@ -11,6 +11,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 // Auth components
 import Login from './pages/Auth/Login';
 import Logout from './pages/Auth/Logout';
+import Register from './pages/Auth/Register';
+import VerifyEmail from './pages/Auth/VerifyEmail';
 
 const { Content } = Layout;
 
@@ -50,6 +52,8 @@ function App() {
         <Routes>
           {/* Auth routes */}
           <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+          <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/logout" element={<Logout />} />
 
           {/* Protected routes */}

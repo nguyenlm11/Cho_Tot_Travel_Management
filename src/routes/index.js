@@ -10,6 +10,7 @@ import Voucher from '../pages/Owner/Voucher/Voucher';
 import HomestayDetail from '../pages/Owner/HomeStayDetail/HomestayDetail';
 import Login from '../pages/Auth/Login';
 import DashboardOwner from '../pages/Owner/Dashboard/DashboardOwner';
+import Register from '../pages/Auth/Register';
 
 // Auth routes
 const authRoutes = [
@@ -19,7 +20,7 @@ const authRoutes = [
     },
     {
         path: '/register',
-        element: <div>Đăng ký</div>,
+        element: <Register />
     },
     {
         path: '/forgot-password',
