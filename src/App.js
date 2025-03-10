@@ -17,7 +17,8 @@ import VerifyEmail from './pages/Auth/VerifyEmail';
 const { Content } = Layout;
 
 function App() {
-  const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'guest');
+  // const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'admin');
+  const [userRole, setUserRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('isAuthenticated') === 'true'
   );
@@ -25,7 +26,8 @@ function App() {
   useEffect(() => {
     // Lắng nghe sự thay đổi trong localStorage
     const handleStorageChange = () => {
-      setUserRole(localStorage.getItem('userRole') || 'guest');
+      // setUserRole(localStorage.getItem('userRole') || 'admin');
+      setUserRole('owner');
       setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
     };
 

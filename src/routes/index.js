@@ -28,32 +28,35 @@ const authRoutes = [
     },
 ];
 
-
 // Routes cho Admin
 const adminRoutes = [
     {
-        path: '/customers',
-        element: <div>Quản lý khách hàng</div>,
+        path: '/admin/users/owners',
+        element: <div>Quản lý chủ homestay</div>, // Quản lý chủ nhà nghỉ
     },
     {
-        path: '/homestay-owners',
-        element: <div>Quản lý chủ homestay</div>,
+        path: '/admin/users/customers',
+        element: <div>Quản lý khách hàng</div>, // Quản lý khách hàng
     },
     {
-        path: '/transaction-fees',
-        element: <div>Phí giao dịch</div>,
+        path: '/admin/homestays/all',
+        element: <div>Tất cả nhà nghỉ</div>, // Tất cả nhà nghỉ
     },
     {
-        path: '/revenue-reports',
-        element: <div>Báo cáo doanh thu</div>,
+        path: '/admin/homestays/verify',
+        element: <div>Xác nhận nhà nghỉ</div>, // Xác nhận nhà nghỉ
     },
     {
-        path: '/system-status',
-        element: <div>Trạng thái hệ thống</div>,
+        path: '/admin/revenue/total',
+        element: <div>Tổng doanh thu</div>, // Tổng doanh thu
     },
     {
-        path: '/reported-issues',
-        element: <div>Vấn đề báo cáo</div>,
+        path: '/admin/revenue/commission',
+        element: <div>Quản lý hoa hồng</div>, // Quản lý hoa hồng
+    },
+    {
+        path: '/admin/settings',
+        element: <div>Cài đặt hệ thống</div>, // Cài đặt hệ thống
     },
 ];
 
@@ -107,7 +110,6 @@ const ownerRoutes = [
         path: '/dashboardOwner',
         element: <DashboardOwner />,
     },
-
 ];
 
 // Routes chung
