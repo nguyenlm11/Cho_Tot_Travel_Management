@@ -1,19 +1,18 @@
 import { Card, Col, Row, Statistic, Typography } from 'antd'
 import './DashboardOwner.css'
 import React from 'react'
-import dayjs from "dayjs";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title as ChartTitle,
     Tooltip,
     Legend,
 } from "chart.js";
-import { color } from 'chart.js/helpers';
 import { MoneyCollectOutlined } from '@ant-design/icons';
 
 // Đăng ký các component của Chart.js
@@ -22,6 +21,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     ChartTitle,
     Tooltip,
     Legend
@@ -96,10 +96,21 @@ export default function DashboardOwner() {
                     color: 'rgb(53, 162, 235)'
                 },
                 grid: {
-                    drawOnChartArea: false // chỉ vẽ lưới cho trục y bên trái
+                    drawOnChartArea: false
                 },
             },
-        }
+            x: {
+                ticks: {
+                    font: {
+                        size: 12,
+                        weight: '500'
+                    },
+                    color: '#666'
+                }
+            }
+        },
+        barPercentage: 0.8,
+        categoryPercentage: 0.9
     };
 
     // Dữ liệu mẫu cho biểu đồ
@@ -165,7 +176,7 @@ export default function DashboardOwner() {
                 <Row gutter={[16, 16]}>
                     <Col span={24}>
                         <Card>
-                            <Line options={options} data={combinedData} />
+                            <Bar options={options} data={combinedData} />
                         </Card>
                     </Col>
                 </Row>
@@ -173,3 +184,4 @@ export default function DashboardOwner() {
         </div>
     )
 }
+
